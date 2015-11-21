@@ -19,7 +19,7 @@ public class Board {
     }
 
     public boolean isGameOver() {
-        return hasVerticalWinner() || hasHorizontalWinner();
+        return hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner();
     }
 
     public void playerChooses(BoardPosition boardPosition) {
@@ -90,6 +90,17 @@ public class Board {
             if ((grid[i][0] == grid[i][1]) && (grid[i][1] == grid[i][2])) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    private boolean hasDiagonalWinner() {
+        if (isLetter(grid[0][0]) && (grid[0][0] == grid[1][1]) && (grid[1][1] == grid[2][2])) {
+            return true;
+        }
+        if (isLetter(grid[0][2]) && (grid[0][2] == grid[1][1]) && (grid[1][1] == grid[2][0])) {
+            return true;
         }
 
         return false;

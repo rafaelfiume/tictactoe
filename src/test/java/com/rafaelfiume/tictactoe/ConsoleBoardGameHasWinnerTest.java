@@ -64,6 +64,25 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
         then(theBoardGameStatus(), is("PLAYER O WON!"));
     }
 
+    @Test
+    public void appDisplaysPlayerXHasDiagonalWin() throws Exception {
+        when(player_X_marksTopLeftPosition());
+        and(player_O_marksMidLeftPosition());
+        and(player_X_marksCenterPosition());
+        and(player_O_marksMidRightPosition());
+        and(player_X_marksDownRightPosition());
+        andAppIsUpAndRunning();
+
+        then(theBoardGameDescription(), is("Player X:"));
+        then(theBoardGame(), aBoardLike(
+                        " X |   |   \n" +
+                        "---+---+---\n" +
+                        " O | X | O \n" +
+                        "---+---+---\n" +
+                        "   |   | X \n"));
+        then(theBoardGameStatus(), is("PLAYER X WON!"));
+    }
+
     private void andAppIsUpAndRunning() {
         gameRunner.start();
     }
@@ -98,6 +117,14 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
     private ActionUnderTest player_X_marksTopCenterPosition() {
         return userHitsNumber(2);
+    }
+
+    private ActionUnderTest player_X_marksCenterPosition() {
+        return userHitsNumber(5);
+    }
+
+    private ActionUnderTest player_X_marksDownRightPosition() {
+        return userHitsNumber(9);
     }
 
     private ActionUnderTest userHitsNumber(int number) {

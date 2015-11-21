@@ -63,6 +63,20 @@ public class BoardTest {
     }
 
     @Test
+    public void playerWinsWithDiagonalLine() {
+        final Board board = new BoardBuilder()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(DOWN_LEFT)
+                .withPlayerXChoosing(CENTER)
+                .withPlayerOChoosing(DOWN_CENTER)
+                .withPlayerXChoosing(DOWN_LEFT)
+                .build();
+
+        assertTrue("game should be over", board.isGameOver());
+        assertThat(board.winner(), is(Player.X));
+    }
+
+    @Test
     public void boardReturnsASnaphostOfTheCurrentGame() {
         final Board snapshot = new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
