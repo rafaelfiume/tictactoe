@@ -28,7 +28,7 @@ public class ConsoleGameModel {
 
         if (!currentSnapshot.isGameOver()) return new PlayerTurnState(currentSnapshot.currentPlayer());
 
-        if (currentSnapshot.isGameOver() && currentSnapshot.winner() == Player.X) return new PlayerXWinsState();
+        if (currentSnapshot.isGameOver()) return new PlayerWonState(currentSnapshot.winner());
         return null; // not there yet
     }
 
@@ -86,16 +86,22 @@ public class ConsoleGameModel {
         }
     }
 
-    class PlayerXWinsState implements GameState {
+    class PlayerWonState implements GameState {
+
+        private final Player winner;
+
+        public PlayerWonState(Player winner) {
+            this.winner = winner;
+        }
 
         @Override
         public String gameDescription() {
-            return "Player X:";
+            return format("Player %s:", winner);
         }
 
         @Override
         public String gameStatus() {
-            return "PLAYER X WON!";
+            return format("PLAYER %s WON!", winner);
         }
     }
 

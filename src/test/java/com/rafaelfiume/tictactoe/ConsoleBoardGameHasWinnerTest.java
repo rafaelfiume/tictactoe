@@ -2,20 +2,15 @@ package com.rafaelfiume.tictactoe;
 
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
-import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
-import com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 
 import static com.rafaelfiume.tictactoe.matchers.CustomBoardMatcher.aBoardLike;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
 
 @RunWith(SpecRunner.class)
 public class ConsoleBoardGameHasWinnerTest extends TestState {
@@ -41,12 +36,32 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
         then(theBoardGameDescription(), is("Player X:"));
         then(theBoardGame(), aBoardLike(
-                " X |   |   \n" +
-                "---+---+---\n" +
-                " X | O | O \n" +
-                "---+---+---\n" +
-                " X |   |   \n"));
+                        " X |   |   \n" +
+                        "---+---+---\n" +
+                        " X | O | O \n" +
+                        "---+---+---\n" +
+                        " X |   |   \n"));
         then(theBoardGameStatus(), is("PLAYER X WON!"));
+    }
+
+    @Test
+    public void appDisplaysPlayerOHasHorizontalWin() throws Exception {
+        when(player_X_marksTopLeftPosition());
+        and(player_O_marksCenterPosition());
+        and(player_X_marksTopCenterPosition());
+        and(player_O_marksMidLeftPosition());
+        and(player_X_marksDownLeftPosition());
+        and(player_O_marksMidRightPosition());
+        andAppIsUpAndRunning();
+
+        then(theBoardGameDescription(), is("Player O:"));
+        then(theBoardGame(), aBoardLike(
+                        " X | X |   \n" +
+                        "---+---+---\n" +
+                        " O | O | O \n" +
+                        "---+---+---\n" +
+                        " X |   |   \n"));
+        then(theBoardGameStatus(), is("PLAYER O WON!"));
     }
 
     private void andAppIsUpAndRunning() {
@@ -58,36 +73,36 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
     }
 
     private ActionUnderTest player_X_marksTopLeftPosition() {
-        return (givens, capturedInputAndOutputs) -> {
-            consoleInputReader.willReturn(1);
-            return capturedInputAndOutputs;
-        };
+        return userHitsNumber(1);
     }
 
     private ActionUnderTest player_O_marksCenterPosition() {
-        return (givens, capturedInputAndOutputs) -> {
-            consoleInputReader.willReturn(5);
-            return capturedInputAndOutputs;
-        };
+        return userHitsNumber(5);
     }
 
     private ActionUnderTest player_X_marksMidLeftPosition() {
-        return (givens, capturedInputAndOutputs) -> {
-            consoleInputReader.willReturn(4);
-            return capturedInputAndOutputs;
-        };
+        return userHitsNumber(4);
     }
 
     private ActionUnderTest player_O_marksMidRightPosition() {
-        return (givens, capturedInputAndOutputs) -> {
-            consoleInputReader.willReturn(6);
-            return capturedInputAndOutputs;
-        };
+        return userHitsNumber(6);
     }
 
     private ActionUnderTest player_X_marksDownLeftPosition() {
+        return userHitsNumber(7);
+    }
+
+    private ActionUnderTest player_O_marksMidLeftPosition() {
+        return userHitsNumber(4);
+    }
+
+    private ActionUnderTest player_X_marksTopCenterPosition() {
+        return userHitsNumber(2);
+    }
+
+    private ActionUnderTest userHitsNumber(int number) {
         return (givens, capturedInputAndOutputs) -> {
-            consoleInputReader.willReturn(7);
+            consoleInputReader.willReturn(number);
             return capturedInputAndOutputs;
         };
     }

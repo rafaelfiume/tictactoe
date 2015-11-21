@@ -48,6 +48,21 @@ public class BoardTest {
     }
 
     @Test
+    public void playerWinsWithHorizontalLineInTheBottom() {
+        final Board board = new BoardBuilder()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(DOWN_LEFT)
+                .withPlayerXChoosing(CENTER)
+                .withPlayerOChoosing(DOWN_CENTER)
+                .withPlayerXChoosing(MID_RIGHT)
+                .withPlayerOChoosing(DOWN_RIGHT)
+                .build();
+
+        assertTrue("game should be over", board.isGameOver());
+        assertThat(board.winner(), is(Player.O));
+    }
+
+    @Test
     public void boardReturnsASnaphostOfTheCurrentGame() {
         final Board snapshot = new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
@@ -64,8 +79,7 @@ public class BoardTest {
 
     @Test
     public void changingTheBoardDoesNotReflectsOnPreviousSnapshots() {
-        final Board board = new BoardBuilder()
-                .build();
+        final Board board = new BoardBuilder().build();
 
         final Board snapshot = board.currentGameSnapshot();
         assertFalse("snapshot should not say that game is over", snapshot.isGameOver());

@@ -11,7 +11,7 @@ Build with:
 
 * ~~Board creation~~
 * ~~Player X wins with vertical line~~
-* Player O wins with horizontal line
+* ~~Player O wins with horizontal line~~
 * Player X wins with diagonal line
 * Game with diagonal line
 * Play the game in BOT mode
