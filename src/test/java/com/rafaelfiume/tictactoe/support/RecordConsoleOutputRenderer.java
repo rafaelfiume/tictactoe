@@ -16,7 +16,6 @@ public class RecordConsoleOutputRenderer extends ConsoleGameRenderer {
     @Override
     public String render() {
         final String originalContent = super.render();
-        System.out.println("Rendering: " + originalContent);
         this.lines = originalContent.split(lineSeparator());
         return originalContent;
     }

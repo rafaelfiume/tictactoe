@@ -6,6 +6,7 @@ import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -83,6 +84,31 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
         then(theBoardGameStatus(), is("PLAYER X WON!"));
     }
 
+    @Ignore // Being implemented
+    @Test
+    public void appDisplaysDraw() throws Exception {
+        when(player_X_marksTopLeftPosition());
+        and(player_O_marksCenterPosition());
+        and(player_X_marksMidLeftPosition());
+        and(player_O_marksDownLeftPosition());
+        and(player_X_marksTopRightPosition());
+        and(player_O_marksDownRightPosition());
+        and(player_X_marksDownCenterPosition());
+        and(player_O_marksTopCenterPosition());
+        and(player_X_marksMidRightPosition());
+
+        andAppIsUpAndRunning();
+
+        then(theBoardGameDescription(), is("Player X:"));
+        then(theBoardGame(), aBoardLike(
+                        " X | O | X \n" +
+                        "---+---+--\n" +
+                        " X | O | X \n" +
+                        "---+---+---\n" +
+                        " O | X | O \n"));
+        then(theBoardGameStatus(), is("GAME ENDS WITH A DRAW!"));
+    }
+
     private void andAppIsUpAndRunning() {
         gameRunner.start();
     }
@@ -125,6 +151,30 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
     private ActionUnderTest player_X_marksDownRightPosition() {
         return userHitsNumber(9);
+    }
+
+    private ActionUnderTest player_O_marksDownLeftPosition() {
+        return userHitsNumber(7);
+    }
+
+    private ActionUnderTest player_X_marksDownCenterPosition() {
+        return userHitsNumber(8);
+    }
+
+    private ActionUnderTest player_X_marksTopRightPosition() {
+        return userHitsNumber(3);
+    }
+
+    private ActionUnderTest player_O_marksDownRightPosition() {
+        return userHitsNumber(9);
+    }
+
+    private ActionUnderTest player_O_marksTopCenterPosition() {
+        return userHitsNumber(2);
+    }
+
+    private ActionUnderTest player_X_marksMidRightPosition() {
+        return userHitsNumber(6);
     }
 
     private ActionUnderTest userHitsNumber(int number) {
