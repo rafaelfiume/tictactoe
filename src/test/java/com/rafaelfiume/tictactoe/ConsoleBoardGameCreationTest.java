@@ -1,25 +1,30 @@
 package com.rafaelfiume.tictactoe;
 
 import com.googlecode.yatspec.junit.SpecRunner;
-import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
-import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
-import com.googlecode.yatspec.state.givenwhenthen.TestState;
+import com.googlecode.yatspec.state.givenwhenthen.*;
 import com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher;
+import com.rafaelfiume.tictactoe.support.BoardBuilder;
+import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
-import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
 
 @RunWith(SpecRunner.class)
-public class ConsoleBoardGameTest extends TestState {
+public class ConsoleBoardGameCreationTest extends TestState {
 
-    private final RecordConsoleOutputRenderer renderer = new RecordConsoleOutputRenderer();
+    private final ConsoleInputReaderStub consoleInputReader = new ConsoleInputReaderStub();
 
-    private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(renderer);
+    private final Board board = mock(Board.class);
+    private final ConsoleInput input = new ConsoleInput(consoleInputReader, board);
+
+    private final RecordConsoleOutputRenderer renderer = new RecordConsoleOutputRenderer(board);
+
+    private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, input, renderer);
 
     @Test
     public void appDisplaysBoardToUsersWhenItStarts() throws Exception {
@@ -32,6 +37,9 @@ public class ConsoleBoardGameTest extends TestState {
 
     private GivensBuilder appIsUpAndRunning() {
         return givens -> {
+            Mockito.when(board.isGameOver()).thenReturn(true); // prematurely terminates the game
+            Mockito.when(board.currentGameSnapshot()).thenReturn(new BoardBuilder().build());
+
             gameRunner.start();
             return givens;
         };

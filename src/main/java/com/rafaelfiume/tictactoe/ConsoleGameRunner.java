@@ -1,26 +1,34 @@
 package com.rafaelfiume.tictactoe;
 
-import java.io.Console;
-import java.util.Scanner;
-
 public class ConsoleGameRunner {
+
+    private final ConsoleInput input;
 
     private final ConsoleGameRenderer renderer;
 
-//    private final Console console = System.console();
-    private final Scanner scanner = new Scanner(System.in);
+    private final Board board;
 
-    public ConsoleGameRunner(ConsoleGameRenderer renderer) {
+    public ConsoleGameRunner(Board board, ConsoleInput input, ConsoleGameRenderer renderer) {
+        this.board = board;
+        this.input = input;
         this.renderer = renderer;
     }
 
     public void start() {
-//        console.printf(renderer.render());
         System.out.println(renderer.render());
+        while(!board.isGameOver()) {
+            input.read();
+            System.out.println(renderer.render());
+        }
     }
 
     public static void main(String... args) {
-        new ConsoleGameRunner(new ConsoleGameRenderer()).start();
+        final Board board = new Board();
+
+        new ConsoleGameRunner(
+                board, new ConsoleInput(new BlockingConsoleInputReader(), board),
+                new ConsoleGameRenderer(board))
+        .start();
     }
 
 }

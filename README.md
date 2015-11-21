@@ -10,9 +10,9 @@ Build with:
 ## TODO List
 
 * ~~Board creation~~
-* Player wins with vertical line
-* Player wins with horizontal line
-* Player wins with diagonal line
+* ~~Player X wins with vertical line~~
+* Player O wins with horizontal line
+* Player X wins with diagonal line
 * Game with diagonal line
 * Play the game in BOT mode
 * Validate user input

@@ -1,5 +1,6 @@
 package com.rafaelfiume.tictactoe.support;
 
+import com.rafaelfiume.tictactoe.Board;
 import com.rafaelfiume.tictactoe.ConsoleGameRenderer;
 
 import static java.lang.System.lineSeparator;
@@ -8,15 +9,20 @@ public class RecordConsoleOutputRenderer extends ConsoleGameRenderer {
 
     private String[] lines;
 
+    public RecordConsoleOutputRenderer(Board board) {
+        super(board);
+    }
+
     @Override
     public String render() {
         final String originalContent = super.render();
+        System.out.println("Rendering: " + originalContent);
         this.lines = originalContent.split(lineSeparator());
         return originalContent;
     }
 
     public String gameDescription() {
-        if (lines.length < 1) {
+        if (lines == null) {
             return "";
         }
 
@@ -40,7 +46,7 @@ public class RecordConsoleOutputRenderer extends ConsoleGameRenderer {
             return "";
         }
 
-        final String additionalStatusLine = (lines.length == 9)
+        final String additionalStatusLine = (lines.length == 10)
                 ? lineSeparator() + lines[8]
                 : "";
 
