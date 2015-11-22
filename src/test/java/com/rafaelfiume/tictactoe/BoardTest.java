@@ -1,10 +1,10 @@
 package com.rafaelfiume.tictactoe;
 
 import com.rafaelfiume.tictactoe.support.BoardBuilder;
-import org.junit.Before;
 import org.junit.Test;
 
 import static com.rafaelfiume.tictactoe.BoardPosition.*;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -49,14 +49,7 @@ public class BoardTest {
 
     @Test
     public void playerWinsWithHorizontalLineInTheBottom() {
-        final Board board = new BoardBuilder()
-                .withPlayerXChoosing(TOP_RIGHT)
-                .withPlayerOChoosing(DOWN_LEFT)
-                .withPlayerXChoosing(CENTER)
-                .withPlayerOChoosing(DOWN_CENTER)
-                .withPlayerXChoosing(MID_RIGHT)
-                .withPlayerOChoosing(DOWN_RIGHT)
-                .build();
+        final Board board = aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom();
 
         assertTrue("game should be over", board.isGameOver());
         assertThat(board.winner(), is(Player.O));

@@ -3,15 +3,15 @@ package com.rafaelfiume.tictactoe.matchers;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-public class CustomBoardMatcher extends TypeSafeMatcher<String> {
+public class BoardMatcher extends TypeSafeMatcher<String> {
 
     private final String expectedBoard;
 
-    public static CustomBoardMatcher aBoardLike(String board) {
-        return new CustomBoardMatcher(board);
+    public static BoardMatcher showsABoardLike(String board) {
+        return new BoardMatcher(board);
     }
 
-    public CustomBoardMatcher(String expectedBoard) {
+    public BoardMatcher(String expectedBoard) {
         this.expectedBoard = expectedBoard;
     }
 

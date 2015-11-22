@@ -10,7 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.rafaelfiume.tictactoe.matchers.CustomBoardMatcher.aBoardLike;
+import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
@@ -35,14 +35,14 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
         and(player_X_marksDownLeftPosition());
         andAppIsUpAndRunning();
 
-        then(theBoardGameDescription(), is("Player X:"));
-        then(theBoardGame(), aBoardLike(
+        then(theGameDescription(), is("Player X:"));
+        then(theGame(), showsABoardLike(
                         " X |   |   \n" +
                         "---+---+---\n" +
                         " X | O | O \n" +
                         "---+---+---\n" +
                         " X |   |   \n"));
-        then(theBoardGameStatus(), is("PLAYER X WON!"));
+        then(theGameStatus(), is("PLAYER X WON!"));
     }
 
     @Test
@@ -55,14 +55,14 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
         and(player_O_marksMidRightPosition());
         andAppIsUpAndRunning();
 
-        then(theBoardGameDescription(), is("Player O:"));
-        then(theBoardGame(), aBoardLike(
+        then(theGameDescription(), is("Player O:"));
+        then(theGame(), showsABoardLike(
                         " X | X |   \n" +
                         "---+---+---\n" +
                         " O | O | O \n" +
                         "---+---+---\n" +
                         " X |   |   \n"));
-        then(theBoardGameStatus(), is("PLAYER O WON!"));
+        then(theGameStatus(), is("PLAYER O WON!"));
     }
 
     @Test
@@ -74,14 +74,14 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
         and(player_X_marksDownRightPosition());
         andAppIsUpAndRunning();
 
-        then(theBoardGameDescription(), is("Player X:"));
-        then(theBoardGame(), aBoardLike(
+        then(theGameDescription(), is("Player X:"));
+        then(theGame(), showsABoardLike(
                         " X |   |   \n" +
                         "---+---+---\n" +
                         " O | X | O \n" +
                         "---+---+---\n" +
                         "   |   | X \n"));
-        then(theBoardGameStatus(), is("PLAYER X WON!"));
+        then(theGameStatus(), is("PLAYER X WON!"));
     }
 
     @Ignore // Being implemented
@@ -99,14 +99,14 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
         andAppIsUpAndRunning();
 
-        then(theBoardGameDescription(), is("Player X:"));
-        then(theBoardGame(), aBoardLike(
+        then(theGameDescription(), is("Player X:"));
+        then(theGame(), showsABoardLike(
                         " X | O | X \n" +
                         "---+---+--\n" +
                         " X | O | X \n" +
                         "---+---+---\n" +
                         " O | X | O \n"));
-        then(theBoardGameStatus(), is("GAME ENDS WITH A DRAW!"));
+        then(theGameStatus(), is("GAME ENDS WITH A DRAW!"));
     }
 
     private void andAppIsUpAndRunning() {
@@ -117,65 +117,21 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
         return when(actionUnderTest);
     }
 
-    private ActionUnderTest player_X_marksTopLeftPosition() {
-        return userHitsNumber(1);
-    }
-
-    private ActionUnderTest player_O_marksCenterPosition() {
-        return userHitsNumber(5);
-    }
-
-    private ActionUnderTest player_X_marksMidLeftPosition() {
-        return userHitsNumber(4);
-    }
-
-    private ActionUnderTest player_O_marksMidRightPosition() {
-        return userHitsNumber(6);
-    }
-
-    private ActionUnderTest player_X_marksDownLeftPosition() {
-        return userHitsNumber(7);
-    }
-
-    private ActionUnderTest player_O_marksMidLeftPosition() {
-        return userHitsNumber(4);
-    }
-
-    private ActionUnderTest player_X_marksTopCenterPosition() {
-        return userHitsNumber(2);
-    }
-
-    private ActionUnderTest player_X_marksCenterPosition() {
-        return userHitsNumber(5);
-    }
-
-    private ActionUnderTest player_X_marksDownRightPosition() {
-        return userHitsNumber(9);
-    }
-
-    private ActionUnderTest player_O_marksDownLeftPosition() {
-        return userHitsNumber(7);
-    }
-
-    private ActionUnderTest player_X_marksDownCenterPosition() {
-        return userHitsNumber(8);
-    }
-
-    private ActionUnderTest player_X_marksTopRightPosition() {
-        return userHitsNumber(3);
-    }
-
-    private ActionUnderTest player_O_marksDownRightPosition() {
-        return userHitsNumber(9);
-    }
-
-    private ActionUnderTest player_O_marksTopCenterPosition() {
-        return userHitsNumber(2);
-    }
-
-    private ActionUnderTest player_X_marksMidRightPosition() {
-        return userHitsNumber(6);
-    }
+    private ActionUnderTest player_X_marksTopLeftPosition() { return userHitsNumber(1); }
+    private ActionUnderTest player_X_marksTopCenterPosition() { return userHitsNumber(2); }
+    private ActionUnderTest player_O_marksTopCenterPosition() { return userHitsNumber(2); }
+    private ActionUnderTest player_X_marksTopRightPosition() { return userHitsNumber(3); }
+    private ActionUnderTest player_X_marksMidLeftPosition() { return userHitsNumber(4);}
+    private ActionUnderTest player_O_marksMidLeftPosition() { return userHitsNumber(4); }
+    private ActionUnderTest player_X_marksCenterPosition() { return userHitsNumber(5); }
+    private ActionUnderTest player_O_marksCenterPosition() { return userHitsNumber(5); }
+    private ActionUnderTest player_X_marksMidRightPosition() { return userHitsNumber(6); }
+    private ActionUnderTest player_O_marksMidRightPosition() { return userHitsNumber(6); }
+    private ActionUnderTest player_X_marksDownLeftPosition() { return userHitsNumber(7); }
+    private ActionUnderTest player_O_marksDownLeftPosition() { return userHitsNumber(7); }
+    private ActionUnderTest player_X_marksDownCenterPosition() { return userHitsNumber(8); }
+    private ActionUnderTest player_X_marksDownRightPosition() { return userHitsNumber(9); }
+    private ActionUnderTest player_O_marksDownRightPosition() { return userHitsNumber(9); }
 
     private ActionUnderTest userHitsNumber(int number) {
         return (givens, capturedInputAndOutputs) -> {
@@ -184,15 +140,15 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
         };
     }
 
-    private StateExtractor<Object> theBoardGameDescription() {
+    private StateExtractor<Object> theGameDescription() {
         return inputAndOutputs -> renderer.gameDescription();
     }
 
-    private StateExtractor<String> theBoardGame() {
+    private StateExtractor<String> theGame() {
         return inputAndOutputs -> renderer.boarGame();
     }
 
-    private StateExtractor<String> theBoardGameStatus() {
+    private StateExtractor<String> theGameStatus() {
         return inputAndOutputs -> renderer.gameStatus();
     }
 

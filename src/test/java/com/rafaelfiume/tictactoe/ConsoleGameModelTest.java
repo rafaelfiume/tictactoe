@@ -5,7 +5,9 @@ import com.rafaelfiume.tictactoe.support.BoardBuilder;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
-import static com.rafaelfiume.tictactoe.matchers.CustomBoardMatcher.aBoardLike;
+import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
@@ -13,7 +15,7 @@ public class ConsoleGameModelTest {
 
     @Test
     public void printEmptyBoardWhenThereAreNoMovesYet() {
-        final Board emptyBoard = new BoardBuilder().build();
+        final Board emptyBoard = new BoardBuilder().build().currentGameSnapshot();
         final ConsoleGameModel emptyGame = new ConsoleGameModel(emptyBoard);
 
         assertThat(emptyGame.gameDescription(), containsString("Game Board Creation..."));
@@ -23,28 +25,32 @@ public class ConsoleGameModelTest {
 
     @Test
     public void printPlayerXWinsWhenHeStrikesVerticalVictory() {
-        final ConsoleGameModel emptyGame = player_X_withVerticalVictory();
+        final Board playerXWon = aBoardWithPlayerXWinningWithVerticalLineOnTheLeft().currentGameSnapshot();
+        final ConsoleGameModel consoleModel = new ConsoleGameModel(playerXWon);
 
-        assertThat(emptyGame.gameDescription(), containsString("Player X:"));
-        assertThat(emptyGame.board(), aBoardLike(
+        assertThat(consoleModel.gameDescription(), containsString("Player X:"));
+        assertThat(consoleModel.board(), showsABoardLike(
                         " X |   |   \n" +
                         "---+---+---\n" +
                         " X | O | O \n" +
                         "---+---+---\n" +
                         " X |   |   \n"));
-        assertThat(emptyGame.gameStatus(), containsString("PLAYER X WON!"));
+        assertThat(consoleModel.gameStatus(), containsString("PLAYER X WON!"));
     }
 
-    private ConsoleGameModel player_X_withVerticalVictory() {
-        final Board board = new BoardBuilder()
-                .withPlayerXChoosing(BoardPosition.TOP_LEFT)
-                .withPlayerOChoosing(BoardPosition.CENTER)
-                .withPlayerXChoosing(BoardPosition.MID_LEFT)
-                .withPlayerOChoosing(BoardPosition.MID_RIGHT)
-                .withPlayerXChoosing(BoardPosition.DOWN_LEFT)
-                .build();
+    @Test
+    public void printPlayerOWinsWhenSheStrikesHorizontalVictory() {
+        final Board playerOWon = aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom().currentGameSnapshot();
+        final ConsoleGameModel consoleModel = new ConsoleGameModel(playerOWon);
 
-        return new ConsoleGameModel(board.currentGameSnapshot());
+        assertThat(consoleModel.gameDescription(), containsString("Player O:"));
+        assertThat(consoleModel.board(), showsABoardLike(
+                        "   |   | X \n" +
+                        "---+---+---\n" +
+                        "   | X | X \n" +
+                        "---+---+---\n" +
+                        " O | O | O \n"));
+        assertThat(consoleModel.gameStatus(), containsString("PLAYER O WON!"));
     }
 
     private Matcher<? super String> containsEmptyBoard() {

@@ -21,7 +21,8 @@ public class BoardPositionTest {
             "---+---+---\n" +
             " 4 | 5 | 6 \n" +
             "---+---+---\n" +
-            " 7 | 8 | 9 \n")
+            " 7 | 8 | 9 \n"
+    )
     @Table({
             @Row({"1", "TOP_LEFT"}),
             @Row({"2", "TOP_CENTER"}),

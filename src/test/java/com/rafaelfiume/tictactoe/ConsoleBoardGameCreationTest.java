@@ -30,9 +30,9 @@ public class ConsoleBoardGameCreationTest extends TestState {
     public void appDisplaysBoardToUsersWhenItStarts() throws Exception {
         given(appIsUpAndRunning());
 
-        then(theBoardGameDescription(), is("Game Board Creation..."));
-        then(theBoardGame(), showsBoardToUser());
-        then(theBoardGameStatus(), is("Board Created.\nThe game will start with Player X"));
+        then(theGameDescription(), is("Game Board Creation..."));
+        then(theGame(), showsAnEmptyBoardToUser());
+        then(theGameStatus(), is("Board Created.\nThe game will start with Player X"));
     }
 
     private GivensBuilder appIsUpAndRunning() {
@@ -45,19 +45,19 @@ public class ConsoleBoardGameCreationTest extends TestState {
         };
     }
 
-    private StateExtractor<Object> theBoardGameDescription() {
+    private StateExtractor<Object> theGameDescription() {
         return inputAndOutputs -> renderer.gameDescription();
     }
 
-    private StateExtractor<String> theBoardGame() {
+    private StateExtractor<String> theGame() {
         return inputAndOutputs -> renderer.boarGame();
     }
 
-    private StateExtractor<String> theBoardGameStatus() {
+    private StateExtractor<String> theGameStatus() {
         return inputAndOutputs -> renderer.gameStatus();
     }
 
-    private TypeSafeMatcher<String> showsBoardToUser() {
+    private TypeSafeMatcher<String> showsAnEmptyBoardToUser() {
         return new EmptyBoardMatcher();
     }
 
