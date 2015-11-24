@@ -20,11 +20,9 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
     private final Board board = new Board();
 
-    private final ConsoleInput input = new ConsoleInput(consoleInputReader, board);
+    private final RecordConsoleOutputRenderer consoleRenderer = new RecordConsoleOutputRenderer();
 
-    private final RecordConsoleOutputRenderer renderer = new RecordConsoleOutputRenderer(board);
-
-    private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, input, renderer);
+    private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, consoleInputReader, consoleRenderer);
 
     @Test
     public void appDisplaysPlayerXHasVerticalWin() throws Exception {
@@ -141,15 +139,15 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
     }
 
     private StateExtractor<Object> theGameDescription() {
-        return inputAndOutputs -> renderer.gameDescription();
+        return inputAndOutputs -> consoleRenderer.gameDescription();
     }
 
     private StateExtractor<String> theGame() {
-        return inputAndOutputs -> renderer.boarGame();
+        return inputAndOutputs -> consoleRenderer.boarGame();
     }
 
     private StateExtractor<String> theGameStatus() {
-        return inputAndOutputs -> renderer.gameStatus();
+        return inputAndOutputs -> consoleRenderer.gameStatus();
     }
 
 }

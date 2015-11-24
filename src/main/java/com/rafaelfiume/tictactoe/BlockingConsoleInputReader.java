@@ -7,8 +7,8 @@ public class BlockingConsoleInputReader implements ConsoleInputReader {
     private final Scanner scanner = new Scanner(System.in);
 
     @Override
-    public int readUserInput() {
-        return scanner.nextInt();
+    public BoardPosition readUserInput() {
+        return BoardPosition.of(scanner.nextInt());
     }
 
 }

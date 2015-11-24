@@ -20,11 +20,10 @@ public class ConsoleBoardGameCreationTest extends TestState {
     private final ConsoleInputReaderStub consoleInputReader = new ConsoleInputReaderStub();
 
     private final Board board = mock(Board.class);
-    private final ConsoleInput input = new ConsoleInput(consoleInputReader, board);
 
-    private final RecordConsoleOutputRenderer renderer = new RecordConsoleOutputRenderer(board);
+    private final RecordConsoleOutputRenderer consoleRenderer = new RecordConsoleOutputRenderer();
 
-    private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, input, renderer);
+    private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, consoleInputReader, consoleRenderer);
 
     @Test
     public void appDisplaysBoardToUsersWhenItStarts() throws Exception {
@@ -46,15 +45,15 @@ public class ConsoleBoardGameCreationTest extends TestState {
     }
 
     private StateExtractor<Object> theGameDescription() {
-        return inputAndOutputs -> renderer.gameDescription();
+        return inputAndOutputs -> consoleRenderer.gameDescription();
     }
 
     private StateExtractor<String> theGame() {
-        return inputAndOutputs -> renderer.boarGame();
+        return inputAndOutputs -> consoleRenderer.boarGame();
     }
 
     private StateExtractor<String> theGameStatus() {
-        return inputAndOutputs -> renderer.gameStatus();
+        return inputAndOutputs -> consoleRenderer.gameStatus();
     }
 
     private TypeSafeMatcher<String> showsAnEmptyBoardToUser() {

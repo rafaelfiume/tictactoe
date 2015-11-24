@@ -2,23 +2,24 @@ package com.rafaelfiume.tictactoe;
 
 public class ConsoleGameRunner {
 
-    private final ConsoleInput input;
+    private final ConsoleInputReader input;
 
     private final ConsoleGameRenderer renderer;
 
     private final Board board;
 
-    public ConsoleGameRunner(Board board, ConsoleInput input, ConsoleGameRenderer renderer) {
+    public ConsoleGameRunner(Board board, ConsoleInputReader input, ConsoleGameRenderer renderer) {
         this.board = board;
         this.input = input;
         this.renderer = renderer;
     }
 
     public void start() {
-        System.out.println(renderer.render());
-        while(!board.isGameOver()) {
-            input.read();
-            System.out.println(renderer.render());
+        System.out.println(renderer.render(board.currentGameSnapshot()));
+
+        while(board.gameIsRunning()) {
+            board.playerChooses(input.readUserInput());
+            System.out.println(renderer.render(board.currentGameSnapshot()));
         }
     }
 
@@ -26,8 +27,9 @@ public class ConsoleGameRunner {
         final Board board = new Board();
 
         new ConsoleGameRunner(
-                board, new ConsoleInput(new BlockingConsoleInputReader(), board),
-                new ConsoleGameRenderer(board))
+                board,
+                new BlockingConsoleInputReader(),
+                new ConsoleGameRenderer())
         .start();
     }
 

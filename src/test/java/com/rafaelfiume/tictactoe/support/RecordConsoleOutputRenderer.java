@@ -9,13 +9,9 @@ public class RecordConsoleOutputRenderer extends ConsoleGameRenderer {
 
     private String[] lines;
 
-    public RecordConsoleOutputRenderer(Board board) {
-        super(board);
-    }
-
     @Override
-    public String render() {
-        final String originalContent = super.render();
+    public String render(Board gameSnapshot) {
+        final String originalContent = super.render(gameSnapshot);
         this.lines = originalContent.split(lineSeparator());
         return originalContent;
     }

@@ -2,7 +2,7 @@ package com.rafaelfiume.tictactoe;
 
 import static java.lang.Character.isLetter;
 
-public class Board {
+public class Board implements Turn {
 
     private final char[][] grid;
 
@@ -22,23 +22,28 @@ public class Board {
         return hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner();
     }
 
-    public void playerChooses(BoardPosition boardPosition) {
-        grid[boardPosition.row()][boardPosition.column()] = currentPlayer.symbol();
-
-        this.currentPlayer = switchPlayerIfGameIsNotOver();
-        this.gameStarted = true;
-    }
-
-    public Player winner() {
-        return (isGameOver()) ? currentPlayer : null;
+    public boolean gameIsRunning() {
+        return !isGameOver();
     }
 
     public boolean isGameStarted() {
         return gameStarted;
     }
 
+    public Player winner() {
+        return (isGameOver()) ? currentPlayer : null;
+    }
+
     public Player currentPlayer() {
         return currentPlayer;
+    }
+
+    @Override
+    public void playerChooses(BoardPosition boardPosition) {
+        grid[boardPosition.row()][boardPosition.column()] = currentPlayer.symbol();
+
+        this.currentPlayer = switchPlayerIfGameIsNotOver();
+        this.gameStarted = true;
     }
 
     public Board currentGameSnapshot() {

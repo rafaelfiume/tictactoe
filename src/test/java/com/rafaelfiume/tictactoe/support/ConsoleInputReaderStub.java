@@ -1,5 +1,6 @@
 package com.rafaelfiume.tictactoe.support;
 
+import com.rafaelfiume.tictactoe.BoardPosition;
 import com.rafaelfiume.tictactoe.ConsoleInputReader;
 
 import java.util.ArrayDeque;
@@ -11,11 +12,12 @@ public class ConsoleInputReaderStub implements ConsoleInputReader {
     private final Queue<Integer> positions = new ArrayBlockingQueue(10);
 
     @Override
-    public int readUserInput() {
-        return positions.poll();
+    public BoardPosition readUserInput() {
+        return BoardPosition.of(positions.poll());
     }
 
     public void willReturn(int position) {
         positions.add(position);
     }
+
 }
