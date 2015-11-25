@@ -2,6 +2,7 @@ package com.rafaelfiume.tictactoe;
 
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.rafaelfiume.tictactoe.matchers.BoardMatcher;
 import com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher;
 import com.rafaelfiume.tictactoe.support.BoardBuilder;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
@@ -31,7 +33,7 @@ public class ConsoleBoardGameCreationTest extends TestState {
         given(appIsUpAndRunning());
 
         then(theGameDescription(), is("Game Board Creation..."));
-        then(theGame(), showsAnEmptyBoardToUser());
+        then(theGame(), shows(anEmptyBoard()));
         then(theGameStatus(), is("Board Created." + lineSeparator() + "The game will start with Player X"));
     }
 
@@ -57,8 +59,8 @@ public class ConsoleBoardGameCreationTest extends TestState {
         return inputAndOutputs -> consoleRenderer.gameStatus();
     }
 
-    private TypeSafeMatcher<String> showsAnEmptyBoardToUser() {
-        return new EmptyBoardMatcher();
+    private TypeSafeMatcher<String> shows(BoardMatcher boardMatcher) {
+        return boardMatcher;
     }
 
 }

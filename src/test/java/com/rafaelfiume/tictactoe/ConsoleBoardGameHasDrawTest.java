@@ -11,11 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
-import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
-public class ConsoleBoardGameHasWinnerTest extends TestState {
+public class ConsoleBoardGameHasDrawTest extends TestState {
 
     private final ConsoleInputReaderStub consoleInputReader = new ConsoleInputReaderStub();
 
@@ -25,62 +24,29 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
     private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, consoleInputReader, consoleRenderer);
 
+    @Ignore
     @Test
-    public void playerXWinsWhenGettingThreeInAVerticalRow() throws Exception {
+    public void gameEndsInADrawWhenPlayersCantGetThreeInARow() throws Exception {
         when(player_X_marksTopLeftPosition());
         and(player_O_marksCenterPosition());
         and(player_X_marksMidLeftPosition());
-        and(player_O_marksMidRightPosition());
-        and(player_X_marksDownLeftPosition());
+        and(player_O_marksDownLeftPosition());
+        and(player_X_marksTopRightPosition());
+        and(player_O_marksDownRightPosition());
+        and(player_X_marksDownCenterPosition());
+        and(player_O_marksTopCenterPosition());
+        and(player_X_marksMidRightPosition());
+
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("Player X:"));
         then(theGame(), showsABoardLike(
-                        " X |   |   " + lineSeparator() +
-                        "---+---+---" + lineSeparator() +
-                        " X | O | O " + lineSeparator() +
-                        "---+---+---" + lineSeparator() +
-                        " X |   |   "));
-        then(theGameStatus(), is("PLAYER X WON!"));
-    }
-
-    @Test
-    public void playerOWinsWhenGettingThreeInAHorizontalRow() throws Exception {
-        when(player_X_marksTopLeftPosition());
-        and(player_O_marksCenterPosition());
-        and(player_X_marksTopCenterPosition());
-        and(player_O_marksMidLeftPosition());
-        and(player_X_marksDownLeftPosition());
-        and(player_O_marksMidRightPosition());
-        andAppIsUpAndRunning();
-
-        then(theGameDescription(), is("Player O:"));
-        then(theGame(), showsABoardLike(
-                        " X | X |   " + lineSeparator() +
-                        "---+---+---" + lineSeparator() +
-                        " O | O | O " + lineSeparator() +
-                        "---+---+---" + lineSeparator() +
-                        " X |   |   "));
-        then(theGameStatus(), is("PLAYER O WON!"));
-    }
-
-    @Test
-    public void playerXWinsWhenGettingThreeInADiagonalRow() throws Exception {
-        when(player_X_marksTopLeftPosition());
-        and(player_O_marksMidLeftPosition());
-        and(player_X_marksCenterPosition());
-        and(player_O_marksMidRightPosition());
-        and(player_X_marksDownRightPosition());
-        andAppIsUpAndRunning();
-
-        then(theGameDescription(), is("Player X:"));
-        then(theGame(), showsABoardLike(
-                        " X |   |   " + lineSeparator() +
-                        "---+---+---" + lineSeparator() +
-                        " O | X | O " + lineSeparator() +
-                        "---+---+---" + lineSeparator() +
-                        "   |   | X "));
-        then(theGameStatus(), is("PLAYER X WON!"));
+                        " X | O | X \n" +
+                        "---+---+---\n" +
+                        " X | O | X \n" +
+                        "---+---+---\n" +
+                        " O | X | O \n"));
+        then(theGameStatus(), is("GAME ENDS WITH A DRAW!"));
     }
 
     private void andAppIsUpAndRunning() {

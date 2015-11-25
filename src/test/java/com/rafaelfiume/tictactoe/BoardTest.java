@@ -1,11 +1,14 @@
 package com.rafaelfiume.tictactoe;
 
 import com.rafaelfiume.tictactoe.support.BoardBuilder;
+import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.rafaelfiume.tictactoe.BoardPosition.*;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -18,6 +21,8 @@ public class BoardTest {
 
         assertFalse(board.isGameOver());
     }
+
+    // Winning
 
     @Test
     public void playerWinsWithVerticalLineInTheMiddle() {
@@ -69,8 +74,31 @@ public class BoardTest {
         assertThat(board.winner(), is(Player.X));
     }
 
+    // Draw
+
+    @Ignore
     @Test
-    public void boardReturnsASnaphostOfTheCurrentGame() {
+    public void gameEndsInADrawWhenPlayersCantGetThreeInARow() {
+        final Board board = new BoardBuilder()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(CENTER)
+                .withPlayerOChoosing(MID_LEFT)
+                .withPlayerXChoosing(DOWN_LEFT)
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(DOWN_RIGHT)
+                .withPlayerOChoosing(DOWN_CENTER)
+                .withPlayerOChoosing(TOP_CENTER)
+                .withPlayerXChoosing(MID_RIGHT)
+                .build();
+
+        assertTrue("game should be over", board.isGameOver());
+        assertThat(board.winner(), is(nullValue()));
+    }
+
+    // Snapshots
+
+    @Test
+    public void boardReturnsASnapshotOfTheCurrentGame() {
         final Board snapshot = new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
                 .withPlayerOChoosing(CENTER)

@@ -12,9 +12,12 @@ public class EmptyBoardMatcher extends BoardMatcher {
             "---+---+---" + lineSeparator() +
             "   |   |   ";
 
-
     public EmptyBoardMatcher() {
         super(EXPECTED_BOARD);
+    }
+
+    public static EmptyBoardMatcher anEmptyBoard() {
+        return new EmptyBoardMatcher();
     }
 
 }

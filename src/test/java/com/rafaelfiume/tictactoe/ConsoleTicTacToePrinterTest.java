@@ -1,61 +1,56 @@
 package com.rafaelfiume.tictactoe;
 
-import com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher;
 import com.rafaelfiume.tictactoe.support.BoardBuilder;
-import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
-import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class ConsoleGameModelTest {
+public class ConsoleTicTacToePrinterTest {
 
     @Test
     public void printEmptyBoardWhenThereAreNoMovesYet() {
         final Board emptyBoard = new BoardBuilder().build().currentGameSnapshot();
-        final ConsoleGameModel emptyGame = new ConsoleGameModel(emptyBoard);
+        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(emptyBoard);
 
-        assertThat(emptyGame.gameDescription(), containsString("Game Board Creation..."));
-        assertThat(emptyGame.board(), containsEmptyBoard());
-        assertThat(emptyGame.gameStatus(), containsString("Board Created." + lineSeparator() + "The game will start with Player X"));
+        assertThat(print.gameDescription(), is("Game Board Creation..."));
+        assertThat(print.board(), is(anEmptyBoard()));
+        assertThat(print.gameStatus(), is("Board Created." + lineSeparator() + "The game will start with Player X" + lineSeparator() + "Choose Position:"));
     }
 
     @Test
-    public void printPlayerXWinsWhenHeStrikesVerticalVictory() {
+    public void printPlayerXWinsWhenHeGetsThreeInAVerticalRow() {
         final Board playerXWon = aBoardWithPlayerXWinningWithVerticalLineOnTheLeft().currentGameSnapshot();
-        final ConsoleGameModel consoleModel = new ConsoleGameModel(playerXWon);
+        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(playerXWon);
 
-        assertThat(consoleModel.gameDescription(), containsString("Player X:"));
-        assertThat(consoleModel.board(), showsABoardLike(
+        assertThat(print.gameDescription(), is("Player X:"));
+        assertThat(print.board(), showsABoardLike(
                         " X |   |   " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         " X | O | O " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         " X |   |   "));
-        assertThat(consoleModel.gameStatus(), containsString("PLAYER X WON!"));
+        assertThat(print.gameStatus(), is("PLAYER X WON!"));
     }
 
     @Test
     public void printPlayerOWinsWhenSheStrikesHorizontalVictory() {
         final Board playerOWon = aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom().currentGameSnapshot();
-        final ConsoleGameModel consoleModel = new ConsoleGameModel(playerOWon);
+        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(playerOWon);
 
-        assertThat(consoleModel.gameDescription(), containsString("Player O:"));
-        assertThat(consoleModel.board(), showsABoardLike(
+        assertThat(print.gameDescription(), is("Player O:"));
+        assertThat(print.board(), showsABoardLike(
                         "   |   | X " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         "   | X | X " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         " O | O | O "));
-        assertThat(consoleModel.gameStatus(), containsString("PLAYER O WON!"));
+        assertThat(print.gameStatus(), is("PLAYER O WON!"));
     }
-
-    private Matcher<? super String> containsEmptyBoard() {
-        return new EmptyBoardMatcher();
-    }
-
 }
