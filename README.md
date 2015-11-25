@@ -23,6 +23,7 @@ To mark a position in the grid, imagine a telephone dial:
 * ~~Player O wins with horizontal line~~
 * ~~Player X wins with diagonal line~~
 * Game ends with a draw (specification ready)
+* ~~Cross platform game (now working on Windows as well)~~
 * Play the game in BOT mode
 * Validate user input
 * Implement GUI

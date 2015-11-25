@@ -1,12 +1,16 @@
 package com.rafaelfiume.tictactoe;
 
-public class ConsoleGameRenderer {
+import static java.lang.System.lineSeparator;
 
-    private final String content = "%s\n%s\n%s";
+public class ConsoleGameRenderer {
 
     public String render(Board gameSnapshot) {
         final ConsoleGameModel model = new ConsoleGameModel(gameSnapshot);
-        return String.format(content, model.gameDescription(), model.board(), model.gameStatus());
+        return String.format(
+                "%s" + lineSeparator() +
+                "%s" + lineSeparator() + lineSeparator() +
+                "%s",
+                model.gameDescription(), model.board(), model.gameStatus());
     }
 
 }

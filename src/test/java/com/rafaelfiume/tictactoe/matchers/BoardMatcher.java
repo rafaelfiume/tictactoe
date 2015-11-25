@@ -3,6 +3,9 @@ package com.rafaelfiume.tictactoe.matchers;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
+import static java.lang.System.lineSeparator;
+import static java.lang.String.format;
+
 public class BoardMatcher extends TypeSafeMatcher<String> {
 
     private final String expectedBoard;
@@ -22,11 +25,11 @@ public class BoardMatcher extends TypeSafeMatcher<String> {
 
     @Override
     public void describeTo(Description description) {
-        description.appendText("a board:\n" + expectedBoard);
+        description.appendText(format("a board:%s%s", lineSeparator(), expectedBoard));
     }
 
     @Override
     protected void describeMismatchSafely(String actual, Description mismatchDescription) {
-        mismatchDescription.appendText("game board was:\n" + actual);
+        mismatchDescription.appendText(format("game board was:%s%s", lineSeparator(), actual));
     }
 }

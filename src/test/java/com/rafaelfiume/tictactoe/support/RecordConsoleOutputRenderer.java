@@ -33,7 +33,7 @@ public class RecordConsoleOutputRenderer extends ConsoleGameRenderer {
                 lines[2] + lineSeparator() +
                 lines[3] + lineSeparator() +
                 lines[4] + lineSeparator() +
-                lines[5] + lineSeparator();
+                lines[5];
     }
 
     public String gameStatus() {

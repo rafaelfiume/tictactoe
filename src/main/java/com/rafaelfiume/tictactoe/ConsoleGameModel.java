@@ -1,6 +1,7 @@
 package com.rafaelfiume.tictactoe;
 
 import static java.lang.String.format;
+import static java.lang.System.lineSeparator;
 
 public class ConsoleGameModel {
 
@@ -12,11 +13,11 @@ public class ConsoleGameModel {
     private final GameState gameState;
 
     private final String boardTemplate = "" +
-            " %s | %s | %s \n" +
-            "---+---+---\n" +
-            " %s | %s | %s \n" +
-            "---+---+---\n" +
-            " %s | %s | %s \n";
+            " %s | %s | %s " + lineSeparator() +
+            "---+---+---"    + lineSeparator() +
+            " %s | %s | %s " + lineSeparator() +
+            "---+---+---"    + lineSeparator() +
+            " %s | %s | %s ";
 
     public ConsoleGameModel(Board currentSnapshot) {
         this.snapshot = currentSnapshot;
@@ -61,8 +62,8 @@ public class ConsoleGameModel {
 
         @Override
         public String gameStatus() {
-            return "Board Created.\n" +
-                    "The game will start with Player X\n" +
+            return "Board Created." + lineSeparator() +
+                    "The game will start with Player X" + lineSeparator() +
                     CHOOSE_POSITION;
         }
     }

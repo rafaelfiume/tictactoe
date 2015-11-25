@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 
@@ -31,7 +32,7 @@ public class ConsoleBoardGameCreationTest extends TestState {
 
         then(theGameDescription(), is("Game Board Creation..."));
         then(theGame(), showsAnEmptyBoardToUser());
-        then(theGameStatus(), is("Board Created.\nThe game will start with Player X"));
+        then(theGameStatus(), is("Board Created." + lineSeparator() + "The game will start with Player X"));
     }
 
     private GivensBuilder appIsUpAndRunning() {

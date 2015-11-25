@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
+import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
@@ -35,11 +36,11 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
         then(theGameDescription(), is("Player X:"));
         then(theGame(), showsABoardLike(
-                        " X |   |   \n" +
-                        "---+---+---\n" +
-                        " X | O | O \n" +
-                        "---+---+---\n" +
-                        " X |   |   \n"));
+                        " X |   |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " X | O | O " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " X |   |   "));
         then(theGameStatus(), is("PLAYER X WON!"));
     }
 
@@ -55,11 +56,11 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
         then(theGameDescription(), is("Player O:"));
         then(theGame(), showsABoardLike(
-                        " X | X |   \n" +
-                        "---+---+---\n" +
-                        " O | O | O \n" +
-                        "---+---+---\n" +
-                        " X |   |   \n"));
+                        " X | X |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " O | O | O " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " X |   |   "));
         then(theGameStatus(), is("PLAYER O WON!"));
     }
 
@@ -74,11 +75,11 @@ public class ConsoleBoardGameHasWinnerTest extends TestState {
 
         then(theGameDescription(), is("Player X:"));
         then(theGame(), showsABoardLike(
-                        " X |   |   \n" +
-                        "---+---+---\n" +
-                        " O | X | O \n" +
-                        "---+---+---\n" +
-                        "   |   | X \n"));
+                        " X |   |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " O | X | O " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        "   |   | X "));
         then(theGameStatus(), is("PLAYER X WON!"));
     }
 
