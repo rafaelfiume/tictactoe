@@ -29,7 +29,6 @@ public class ConsoleTicTacToeHasDrawTest extends AbstractConsoleTicTacToeTest {
         and(player_X_marksDownCenterPosition());
         and(player_O_marksTopCenterPosition());
         and(player_X_marksMidRightPosition());
-
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("No More Turns Left :-)"));
