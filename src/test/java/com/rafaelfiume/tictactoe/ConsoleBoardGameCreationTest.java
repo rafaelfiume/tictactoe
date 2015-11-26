@@ -22,7 +22,7 @@ public class ConsoleBoardGameCreationTest extends TestState {
 
     private final ConsoleInputReaderStub consoleInputReader = new ConsoleInputReaderStub();
 
-    private final Board board = mock(Board.class);
+    private final Board board = new Board();
 
     private final RecordConsoleOutputRenderer consoleRenderer = new RecordConsoleOutputRenderer();
 
@@ -39,12 +39,18 @@ public class ConsoleBoardGameCreationTest extends TestState {
 
     private GivensBuilder appIsUpAndRunning() {
         return givens -> {
-            Mockito.when(board.isGameOver()).thenReturn(true); // prematurely terminates the game
-            Mockito.when(board.currentGameSnapshot()).thenReturn(new BoardBuilder().build());
-
-            gameRunner.start();
+            startApp();
             return givens;
         };
+    }
+
+    private void startApp() {
+        try {
+            gameRunner.start();
+        } catch (NullPointerException e) {
+            // This is a massive hack to deal with premature termination: game is not over an ConsoleInputReader#readUserInput will blow up
+            // TODO RF 25/11/2015 Improve the design to fix it
+        }
     }
 
     private StateExtractor<Object> theGameDescription() {

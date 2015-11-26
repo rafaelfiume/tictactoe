@@ -3,10 +3,12 @@ package com.rafaelfiume.tictactoe;
 import com.rafaelfiume.tictactoe.support.BoardBuilder;
 import org.junit.Test;
 
+import static com.rafaelfiume.tictactoe.BoardPosition.TOP_RIGHT;
 import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
 import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.emptyBoard;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -15,7 +17,7 @@ public class ConsoleTicTacToePrinterTest {
 
     @Test
     public void printEmptyBoardWhenThereAreNoMovesYet() {
-        final Board emptyBoard = new BoardBuilder().build().currentGameSnapshot();
+        final Board emptyBoard = emptyBoard().currentGameSnapshot();
         final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(emptyBoard);
 
         assertThat(print.gameDescription(), is("Game Board Creation..."));
@@ -66,5 +68,24 @@ public class ConsoleTicTacToePrinterTest {
                         "---+---+---" + lineSeparator() +
                         " O | X | O "));
         assertThat(print.gameStatus(), is("GAME ENDS WITH A DRAW!"));
+    }
+
+    @Test
+    public void printPlayerHasToChooseAnotherCellInTheBoardWhenSheTriesToMarkAnOccupiedSpaceInTheBoard() {
+        final Board boardWithDisputedCell = new BoardBuilder()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(TOP_RIGHT)
+                .build().currentGameSnapshot();
+
+        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(boardWithDisputedCell);
+
+        assertThat(print.gameDescription(), is("Player O:"));
+        assertThat(print.board(), showsABoardLike(
+                        "   |   | X " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        "   |   |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        "   |   |   "));
+        assertThat(print.gameStatus(), is("Choose Position:"));
     }
 }

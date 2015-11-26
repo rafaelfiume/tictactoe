@@ -30,9 +30,9 @@ public class BoardPositionTest {
             @Row({"4", "MID_LEFT"}),
             @Row({"5", "CENTER"}),
             @Row({"6", "MID_RIGHT"}),
-            @Row({"7", "DOWN_LEFT"}),
-            @Row({"8", "DOWN_CENTER"}),
-            @Row({"9", "DOWN_RIGHT"})
+            @Row({"7", "BOTTOM_LEFT"}),
+            @Row({"8", "BOTTOM_CENTER"}),
+            @Row({"9", "BOTTOM_RIGHT"})
     })
     @Test
     public void mapUserInputToCorrectBoardPosition(String number, String boardPosition) {

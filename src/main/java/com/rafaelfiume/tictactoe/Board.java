@@ -39,10 +39,6 @@ public class Board {
         return noMoreTurns() && !gameIsOverWithAWinner();
     }
 
-    private boolean noMoreTurns() {
-        return currentTurn == 10;
-    }
-
     public Player winner() {
         return (gameIsOverWithAWinner()) ? currentPlayer : null;
     }
@@ -52,11 +48,23 @@ public class Board {
     }
 
     public void playerChooses(BoardPosition boardPosition) {
-        grid[boardPosition.row()][boardPosition.column()] = currentPlayer.symbol();
+        final boolean playerTurnEnded = markPositionIfAvailable(boardPosition); // this concerns turns
 
-        this.currentPlayer = switchPlayerIfGameIsNotOver();
-        this.currentTurn++;
+        if (playerTurnEnded) {
+            this.currentPlayer = switchPlayerIfGameIsNotOver();
+            this.currentTurn++;
+        }
+
         this.gameStarted = true;
+    }
+
+    private boolean markPositionIfAvailable(BoardPosition position) {
+        if (cellIsMarkedAt(grid[position.row()][position.column()])) {
+            return false;
+        }
+
+        grid[position.row()][position.column()] = currentPlayer.symbol();
+        return true;
     }
 
     public Board currentGameSnapshot() {
@@ -69,6 +77,7 @@ public class Board {
     }
 
     char topLeft() {      return grid[0][0]; }
+
     char topCenter() {    return grid[0][1]; }
     char topRight() {     return grid[0][2]; }
     char midLeft() {      return grid[1][0]; }
@@ -78,6 +87,14 @@ public class Board {
     char bottomCenter() { return grid[2][1]; }
     char bottomRight() {  return grid[2][2]; }
 
+    int currentTurn() {
+        return currentTurn;
+    }
+
+    private boolean noMoreTurns() {
+        return currentTurn == 10;
+    }
+
     private Player switchPlayerIfGameIsNotOver() {
         if (isGameOver()) return currentPlayer;
         return (currentPlayer == Player.X) ? Player.O : Player.X;
@@ -85,41 +102,39 @@ public class Board {
 
     private boolean hasVerticalWinner() {
         for (int i = 0; i < 3; i++) {
-            if (!isLetter(grid[0][i])) {
-                continue;
-            }
-
-            if ((grid[0][i] == grid[1][i]) && (grid[1][i] == grid[2][i])) {
+            if (cellIsMarkedAt(grid[0][i])
+                    && (grid[0][i] == grid[1][i])
+                    && (grid[1][i] == grid[2][i])) {
                 return true;
             }
         }
-
         return false;
     }
 
     private boolean hasHorizontalWinner() {
         for (int i = 0; i < 3; i++) {
-            if (!isLetter(grid[i][0])) {
-                continue;
-            }
-
-            if ((grid[i][0] == grid[i][1]) && (grid[i][1] == grid[i][2])) {
+            if (cellIsMarkedAt(grid[i][0])
+                    && (grid[i][0] == grid[i][1])
+                    && (grid[i][1] == grid[i][2])) {
                 return true;
             }
         }
-
         return false;
     }
 
     private boolean hasDiagonalWinner() {
-        if (isLetter(topLeft())
+        if (cellIsMarkedAt(topLeft())
                 && (topLeft() == center())
                 && (center() == bottomRight())) {
             return true;
         }
-        return isLetter(topRight())
+        return cellIsMarkedAt(topRight())
                 && (topRight() == center())
                 && (center() == bottomLeft());
+    }
+
+    private boolean cellIsMarkedAt(Character c) {
+        return isLetter(c);
     }
 
     private char[][] cloneArray(char[][] src) {
@@ -130,4 +145,5 @@ public class Board {
         }
         return target;
     }
+
 }

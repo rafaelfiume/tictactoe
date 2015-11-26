@@ -11,6 +11,7 @@ import static com.rafaelfiume.tictactoe.BoardTest.DrawMatcher.hasDraw;
 import static com.rafaelfiume.tictactoe.BoardTest.PlayerWonMatcher.hasWinner;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithAGameEndingWithADraw;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.emptyBoard;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -33,7 +34,7 @@ public class BoardTest {
                 .withPlayerOChoosing(MID_RIGHT)
                 .withPlayerXChoosing(TOP_CENTER)
                 .withPlayerOChoosing(TOP_RIGHT)
-                .withPlayerXChoosing(DOWN_CENTER)
+                .withPlayerXChoosing(BOTTOM_CENTER)
                 .build();
 
         assertThat(board, hasWinner(Player.X));
@@ -45,8 +46,8 @@ public class BoardTest {
                 .withPlayerXChoosing(TOP_RIGHT)
                 .withPlayerOChoosing(CENTER)
                 .withPlayerXChoosing(MID_RIGHT)
-                .withPlayerOChoosing(DOWN_CENTER)
-                .withPlayerXChoosing(DOWN_RIGHT)
+                .withPlayerOChoosing(BOTTOM_CENTER)
+                .withPlayerXChoosing(BOTTOM_RIGHT)
                 .build();
 
         assertThat(board, hasWinner(Player.X));
@@ -62,10 +63,10 @@ public class BoardTest {
     public void playerWinsWithDiagonalLine() {
         final Board board = new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
-                .withPlayerOChoosing(DOWN_LEFT)
+                .withPlayerOChoosing(TOP_CENTER)
                 .withPlayerXChoosing(CENTER)
-                .withPlayerOChoosing(DOWN_CENTER)
-                .withPlayerXChoosing(DOWN_LEFT)
+                .withPlayerOChoosing(BOTTOM_CENTER)
+                .withPlayerXChoosing(BOTTOM_LEFT)
                 .build();
 
         assertThat(board, hasWinner(Player.X));
@@ -78,32 +79,25 @@ public class BoardTest {
         assertThat(aBoardWithAGameEndingWithADraw(), hasDraw());
     }
 
-    // Snapshots
+    // Validation
 
     @Test
-    public void boardReturnsASnapshotOfTheCurrentGame() {
-        final Board snapshot = new BoardBuilder()
-                .withPlayerXChoosing(TOP_RIGHT)
-                .withPlayerOChoosing(CENTER)
-                .withPlayerXChoosing(MID_RIGHT)
-                .withPlayerOChoosing(DOWN_CENTER)
-                .withPlayerXChoosing(DOWN_RIGHT)
-                .build().currentGameSnapshot();
+    public void dontChangeTurnWhenPlayerTriesToMarkAnAlreadyOccupiedCellInTheBoard() {// again, this regards turns not board (needs refactor to improve the design)
+        // given
+        Board board = emptyBoard();
+        assertThat(board.currentTurn(), is(1));
+        assertThat(board.currentPlayer(), is(Player.X));
 
-        assertTrue("snapshot should say that game is over", snapshot.isGameOver());
-        assertThat(snapshot.winner(), is(Player.X));
-        assertFalse(snapshot.gameHasNotStarted());
-    }
+        board.playerChooses(CENTER);
+        assertThat(board.currentTurn(), is(2));
+        assertThat(board.currentPlayer(), is(Player.O));
 
-    @Test
-    public void changingTheBoardDoesNotReflectsOnPreviousSnapshots() {
-        final Board board = new BoardBuilder().build();
+        // when
+        board.playerChooses(CENTER);
 
-        final Board snapshot = board.currentGameSnapshot();
-        assertFalse("snapshot should not say that game is over", snapshot.isGameOver());
-
-        board.playerChooses(DOWN_RIGHT);
-        assertTrue("board should not change state of a created snapshot", snapshot.gameHasNotStarted());
+        // then
+        assertThat(board.currentPlayer(), is(Player.O));
+        assertThat(board.currentTurn(), is(2));
     }
 
     //

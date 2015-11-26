@@ -9,24 +9,28 @@ public class BoardBuilder {
 
     private final Board board = new Board();
 
+    public static Board emptyBoard() {
+        return new BoardBuilder().build();
+    }
+
     public static Board aBoardWithPlayerXWinningWithVerticalLineOnTheLeft() {
         return new BoardBuilder()
                 .withPlayerXChoosing(BoardPosition.TOP_LEFT)
                 .withPlayerOChoosing(BoardPosition.CENTER)
                 .withPlayerXChoosing(BoardPosition.MID_LEFT)
                 .withPlayerOChoosing(BoardPosition.MID_RIGHT)
-                .withPlayerXChoosing(BoardPosition.DOWN_LEFT)
+                .withPlayerXChoosing(BoardPosition.BOTTOM_LEFT)
                 .build();
     }
 
     public static Board aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom() {
         return new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
-                .withPlayerOChoosing(DOWN_LEFT)
+                .withPlayerOChoosing(BOTTOM_LEFT)
                 .withPlayerXChoosing(CENTER)
-                .withPlayerOChoosing(DOWN_CENTER)
+                .withPlayerOChoosing(BOTTOM_CENTER)
                 .withPlayerXChoosing(MID_RIGHT)
-                .withPlayerOChoosing(DOWN_RIGHT)
+                .withPlayerOChoosing(BOTTOM_RIGHT)
                 .build();
     }
 
@@ -35,10 +39,10 @@ public class BoardBuilder {
                 .withPlayerXChoosing(TOP_LEFT)
                 .withPlayerOChoosing(CENTER)
                 .withPlayerXChoosing(MID_LEFT)
-                .withPlayerOChoosing(DOWN_LEFT)
+                .withPlayerOChoosing(BOTTOM_LEFT)
                 .withPlayerXChoosing(TOP_RIGHT)
-                .withPlayerOChoosing(DOWN_RIGHT)
-                .withPlayerXChoosing(DOWN_CENTER)
+                .withPlayerOChoosing(BOTTOM_RIGHT)
+                .withPlayerXChoosing(BOTTOM_CENTER)
                 .withPlayerOChoosing(TOP_CENTER)
                 .withPlayerXChoosing(MID_RIGHT)
                 .build();
