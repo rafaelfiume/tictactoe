@@ -16,7 +16,7 @@ import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
-public class ConsoleBoardGameCreationTest extends TestState {
+public class ConsoleTicTacToeCreationTest extends TestState {
 
     private final ConsoleInputReaderStub consoleInputReader = new ConsoleInputReaderStub();
 
