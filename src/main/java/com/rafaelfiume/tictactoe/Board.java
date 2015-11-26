@@ -2,13 +2,14 @@ package com.rafaelfiume.tictactoe;
 
 import static java.lang.Character.isLetter;
 
-public class Board implements Turn {
+public class Board {
 
     private final char[][] grid;
 
-    private Player currentPlayer = Player.X;
+    private Player currentPlayer = Player.X; // this concerns turns
+    private int currentTurn = 1; // this concerns turns
 
-    private boolean gameStarted = false;
+    private boolean gameStarted = false; // is this concerning the board???
 
     public Board() {
         this(new char[3][3]);
@@ -18,58 +19,68 @@ public class Board implements Turn {
         this.grid = grid;
     }
 
-    public boolean isGameOver() {
-        return hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner();
+    public boolean gameHasNotStarted() {
+        return !gameStarted;
     }
 
     public boolean gameIsRunning() {
         return !isGameOver();
     }
 
-    public boolean isGameStarted() {
-        return gameStarted;
+    public boolean isGameOver() {
+        return gameIsOverWithAWinner() || gameIsOverWithADraw();
+    }
+
+    public boolean gameIsOverWithAWinner() {
+        return hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner();
+    }
+
+    public boolean gameIsOverWithADraw() {
+        return noMoreTurns() && !gameIsOverWithAWinner();
+    }
+
+    private boolean noMoreTurns() {
+        return currentTurn == 10;
     }
 
     public Player winner() {
-        return (isGameOver()) ? currentPlayer : null;
+        return (gameIsOverWithAWinner()) ? currentPlayer : null;
     }
 
     public Player currentPlayer() {
         return currentPlayer;
     }
 
-    @Override
     public void playerChooses(BoardPosition boardPosition) {
         grid[boardPosition.row()][boardPosition.column()] = currentPlayer.symbol();
 
         this.currentPlayer = switchPlayerIfGameIsNotOver();
+        this.currentTurn++;
         this.gameStarted = true;
     }
 
     public Board currentGameSnapshot() {
         final Board snapshot = new Board(cloneArray(grid));
         snapshot.currentPlayer = this.currentPlayer;
+        snapshot.currentTurn = this.currentTurn;
         snapshot.gameStarted = this.gameStarted;
 
         return snapshot;
     }
 
-    char topLeft() {    return grid[0][0]; }
-    char topCenter() {  return grid[0][1]; }
-    char topRight() {   return grid[0][2]; }
-    char midLeft() {    return grid[1][0]; }
-    char center() {     return grid[1][1]; }
-    char midRight() {   return grid[1][2]; }
-    char downLeft() {   return grid[2][0]; }
-    char downCenter() { return grid[2][1]; }
-    char downRight() {  return grid[2][2]; }
+    char topLeft() {      return grid[0][0]; }
+    char topCenter() {    return grid[0][1]; }
+    char topRight() {     return grid[0][2]; }
+    char midLeft() {      return grid[1][0]; }
+    char center() {       return grid[1][1]; }
+    char midRight() {     return grid[1][2]; }
+    char bottomLeft() {   return grid[2][0]; }
+    char bottomCenter() { return grid[2][1]; }
+    char bottomRight() {  return grid[2][2]; }
 
     private Player switchPlayerIfGameIsNotOver() {
         if (isGameOver()) return currentPlayer;
-
-        return (currentPlayer == Player.X)
-                ? Player.O
-                : Player.X;
+        return (currentPlayer == Player.X) ? Player.O : Player.X;
     }
 
     private boolean hasVerticalWinner() {
@@ -101,14 +112,14 @@ public class Board implements Turn {
     }
 
     private boolean hasDiagonalWinner() {
-        if (isLetter(grid[0][0]) && (grid[0][0] == grid[1][1]) && (grid[1][1] == grid[2][2])) {
+        if (isLetter(topLeft())
+                && (topLeft() == center())
+                && (center() == bottomRight())) {
             return true;
         }
-        if (isLetter(grid[0][2]) && (grid[0][2] == grid[1][1]) && (grid[1][1] == grid[2][0])) {
-            return true;
-        }
-
-        return false;
+        return isLetter(topRight())
+                && (topRight() == center())
+                && (center() == bottomLeft());
     }
 
     private char[][] cloneArray(char[][] src) {

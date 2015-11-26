@@ -19,7 +19,7 @@ public class BoardBuilder {
                 .build();
     }
 
-    public static Board aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom() {
+    public static Board aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom() {
         return new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
                 .withPlayerOChoosing(DOWN_LEFT)
@@ -27,6 +27,20 @@ public class BoardBuilder {
                 .withPlayerOChoosing(DOWN_CENTER)
                 .withPlayerXChoosing(MID_RIGHT)
                 .withPlayerOChoosing(DOWN_RIGHT)
+                .build();
+    }
+
+    public static Board aBoardWithAGameEndingWithADraw() {
+        return new BoardBuilder()
+                .withPlayerXChoosing(TOP_LEFT)
+                .withPlayerOChoosing(CENTER)
+                .withPlayerXChoosing(MID_LEFT)
+                .withPlayerOChoosing(DOWN_LEFT)
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(DOWN_RIGHT)
+                .withPlayerXChoosing(DOWN_CENTER)
+                .withPlayerOChoosing(TOP_CENTER)
+                .withPlayerXChoosing(MID_RIGHT)
                 .build();
     }
 
@@ -43,5 +57,4 @@ public class BoardBuilder {
     public Board build() {
         return board;
     }
-
 }

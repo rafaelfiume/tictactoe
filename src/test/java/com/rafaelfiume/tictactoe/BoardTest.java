@@ -1,17 +1,19 @@
 package com.rafaelfiume.tictactoe;
 
 import com.rafaelfiume.tictactoe.support.BoardBuilder;
-import org.hamcrest.Matchers;
-import org.junit.Ignore;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
 import static com.rafaelfiume.tictactoe.BoardPosition.*;
-import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static com.rafaelfiume.tictactoe.BoardTest.DrawMatcher.hasDraw;
+import static com.rafaelfiume.tictactoe.BoardTest.PlayerWonMatcher.hasWinner;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithAGameEndingWithADraw;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static java.lang.String.format;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class BoardTest {
 
@@ -34,8 +36,7 @@ public class BoardTest {
                 .withPlayerXChoosing(DOWN_CENTER)
                 .build();
 
-        assertTrue("game should be over", board.isGameOver());
-        assertThat(board.winner(), is(Player.X));
+        assertThat(board, hasWinner(Player.X));
     }
 
     @Test
@@ -48,16 +49,13 @@ public class BoardTest {
                 .withPlayerXChoosing(DOWN_RIGHT)
                 .build();
 
-        assertTrue("game should be over", board.isGameOver());
-        assertThat(board.winner(), is(Player.X));
+        assertThat(board, hasWinner(Player.X));
+
     }
 
     @Test
     public void playerWinsWithHorizontalLineInTheBottom() {
-        final Board board = aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom();
-
-        assertTrue("game should be over", board.isGameOver());
-        assertThat(board.winner(), is(Player.O));
+        assertThat(aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom(), hasWinner(Player.O));
     }
 
     @Test
@@ -70,29 +68,14 @@ public class BoardTest {
                 .withPlayerXChoosing(DOWN_LEFT)
                 .build();
 
-        assertTrue("game should be over", board.isGameOver());
-        assertThat(board.winner(), is(Player.X));
+        assertThat(board, hasWinner(Player.X));
     }
 
     // Draw
 
-    @Ignore
     @Test
     public void gameEndsInADrawWhenPlayersCantGetThreeInARow() {
-        final Board board = new BoardBuilder()
-                .withPlayerXChoosing(TOP_RIGHT)
-                .withPlayerOChoosing(CENTER)
-                .withPlayerOChoosing(MID_LEFT)
-                .withPlayerXChoosing(DOWN_LEFT)
-                .withPlayerXChoosing(TOP_RIGHT)
-                .withPlayerOChoosing(DOWN_RIGHT)
-                .withPlayerOChoosing(DOWN_CENTER)
-                .withPlayerOChoosing(TOP_CENTER)
-                .withPlayerXChoosing(MID_RIGHT)
-                .build();
-
-        assertTrue("game should be over", board.isGameOver());
-        assertThat(board.winner(), is(nullValue()));
+        assertThat(aBoardWithAGameEndingWithADraw(), hasDraw());
     }
 
     // Snapshots
@@ -109,7 +92,7 @@ public class BoardTest {
 
         assertTrue("snapshot should say that game is over", snapshot.isGameOver());
         assertThat(snapshot.winner(), is(Player.X));
-        assertTrue(snapshot.isGameStarted());
+        assertFalse(snapshot.gameHasNotStarted());
     }
 
     @Test
@@ -120,7 +103,69 @@ public class BoardTest {
         assertFalse("snapshot should not say that game is over", snapshot.isGameOver());
 
         board.playerChooses(DOWN_RIGHT);
-        assertFalse("board should not change state of a created snapshot", snapshot.isGameStarted());
+        assertTrue("board should not change state of a created snapshot", snapshot.gameHasNotStarted());
+    }
+
+    //
+    //// MATCHER
+    //
+
+    static class PlayerWonMatcher extends GameResultMatcher {
+        static Matcher<? super Board> hasWinner(Player winner) {
+            return new PlayerWonMatcher(winner);
+        }
+
+        private PlayerWonMatcher(Player expectedWinner) {
+            super(true, false, expectedWinner);
+        }
+    }
+
+    static class DrawMatcher extends GameResultMatcher {
+        static Matcher<? super Board> hasDraw() {
+            return new DrawMatcher();
+        }
+
+        private DrawMatcher() {
+            super(false, true, null);
+        }
+    }
+
+    private static abstract class GameResultMatcher extends TypeSafeMatcher<Board> {
+
+        private final Player expectedWinner;
+
+        private final boolean expectsGameEndingWithAWinner;
+        private final boolean expectsGameEndingWithADraw;
+
+        private GameResultMatcher(boolean expectsGameEndingWithAWinner, boolean expectsGameEndingWithADraw, Player expectedWinner) {
+            this.expectedWinner = expectedWinner;
+            this.expectsGameEndingWithAWinner = expectsGameEndingWithAWinner;
+            this.expectsGameEndingWithADraw = expectsGameEndingWithADraw;
+        }
+
+        @Override
+        protected boolean matchesSafely(Board resultBoard) {
+            return resultBoard.isGameOver()
+                    && resultBoard.gameIsOverWithAWinner() == expectsGameEndingWithAWinner
+                    && resultBoard.gameIsOverWithADraw() == expectsGameEndingWithADraw
+                    && resultBoard.winner() == expectedWinner;
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            description.appendText(boardDescription(true, expectsGameEndingWithAWinner, expectsGameEndingWithADraw, expectedWinner));
+        }
+
+        @Override
+        protected void describeMismatchSafely(Board actual, Description mismatchDescription) {
+            mismatchDescription.appendText(
+                    boardDescription(actual.isGameOver(), actual.gameIsOverWithAWinner(), actual.gameIsOverWithADraw(), actual.winner()));
+        }
+
+        private String boardDescription(boolean gameOver, boolean withWinner, boolean withDraw, Player winner) {
+            final String desc = "game is over: \"%s\"; with a winner: \"%s\"; with a draw: \"%s\"; and winner being: \"%s\"";
+            return format(desc, gameOver, withWinner, withDraw, winner);
+        }
     }
 
 }

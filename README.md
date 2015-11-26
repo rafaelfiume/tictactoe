@@ -22,7 +22,7 @@ To mark a position in the grid, imagine a telephone dial:
 * ~~Player X wins with vertical line~~
 * ~~Player O wins with horizontal line~~
 * ~~Player X wins with diagonal line~~
-* Game ends with a draw (specification ready)
+* ~~Game ends with a draw~~
 * ~~Cross platform game (now working on Windows as well)~~
 * Play the game in BOT mode
 * Validate user input

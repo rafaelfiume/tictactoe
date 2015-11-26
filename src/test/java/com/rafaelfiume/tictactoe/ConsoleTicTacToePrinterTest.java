@@ -6,9 +6,8 @@ import org.junit.Test;
 import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
 import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft;
-import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom;
 import static java.lang.System.lineSeparator;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -41,7 +40,7 @@ public class ConsoleTicTacToePrinterTest {
 
     @Test
     public void printPlayerOWinsWhenSheStrikesHorizontalVictory() {
-        final Board playerOWon = aBoardwithPlayerOWinningWithAnHorizontalLineOnTheBottom().currentGameSnapshot();
+        final Board playerOWon = aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom().currentGameSnapshot();
         final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(playerOWon);
 
         assertThat(print.gameDescription(), is("Player O:"));
@@ -52,5 +51,20 @@ public class ConsoleTicTacToePrinterTest {
                         "---+---+---" + lineSeparator() +
                         " O | O | O "));
         assertThat(print.gameStatus(), is("PLAYER O WON!"));
+    }
+
+    @Test
+    public void printGameEndsWithDrawWhenThereAreNoMoreTurnsAndNoWinners() {
+        final Board draw = BoardBuilder.aBoardWithAGameEndingWithADraw().currentGameSnapshot();
+        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(draw);
+
+        assertThat(print.gameDescription(), is("No More Turns Left :-)"));
+        assertThat(print.board(), showsABoardLike(
+                        " X | O | X " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " X | O | X " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " O | X | O "));
+        assertThat(print.gameStatus(), is("GAME ENDS WITH A DRAW!"));
     }
 }

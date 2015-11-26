@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
+import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
@@ -24,9 +25,8 @@ public class ConsoleBoardGameHasDrawTest extends TestState {
 
     private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, consoleInputReader, consoleRenderer);
 
-    @Ignore
     @Test
-    public void gameEndsInADrawWhenPlayersCantGetThreeInARow() throws Exception {
+    public void gameEndsInADrawWhenPlayersCantGetThreeInARowBeforeTurnsEnding() throws Exception {
         when(player_X_marksTopLeftPosition());
         and(player_O_marksCenterPosition());
         and(player_X_marksMidLeftPosition());
@@ -39,13 +39,13 @@ public class ConsoleBoardGameHasDrawTest extends TestState {
 
         andAppIsUpAndRunning();
 
-        then(theGameDescription(), is("Player X:"));
+        then(theGameDescription(), is("No More Turns Left :-)"));
         then(theGame(), showsABoardLike(
-                        " X | O | X \n" +
-                        "---+---+---\n" +
-                        " X | O | X \n" +
-                        "---+---+---\n" +
-                        " O | X | O \n"));
+                        " X | O | X " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " X | O | X " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        " O | X | O "));
         then(theGameStatus(), is("GAME ENDS WITH A DRAW!"));
     }
 

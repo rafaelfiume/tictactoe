@@ -10,7 +10,7 @@ public class ConsoleTicTacToePrinter {
 
     private final Board snapshot;
 
-    private final GameState gameState;
+    private final PrinterState printerState;
 
     private final String boardTemplate = "" +
             " %s | %s | %s " + lineSeparator() +
@@ -21,39 +21,39 @@ public class ConsoleTicTacToePrinter {
 
     public ConsoleTicTacToePrinter(Board currentSnapshot) {
         this.snapshot = currentSnapshot;
-        this.gameState = gameStateFrom(currentSnapshot);
+        this.printerState = printerStateFrom(currentSnapshot);
     }
 
-    private GameState gameStateFrom(Board currentSnapshot) {
-        if (!currentSnapshot.isGameStarted()) return new EmptyBoardState();
+    private PrinterState printerStateFrom(Board currentSnapshot) {
+        if (currentSnapshot.gameHasNotStarted())     return new EmptyBoardState();
+        if (currentSnapshot.gameIsRunning())         return new PlayerTurnState(currentSnapshot.currentPlayer());
+        if (currentSnapshot.gameIsOverWithAWinner()) return new PlayerWonState(currentSnapshot.winner());
+        if (currentSnapshot.gameIsOverWithADraw())   return new DrawState();
 
-        if (!currentSnapshot.isGameOver()) return new PlayerTurnState(currentSnapshot.currentPlayer());
-
-        if (currentSnapshot.isGameOver()) return new PlayerWonState(currentSnapshot.winner());
         return null; // not there yet
     }
 
     public String gameDescription() {
-        return gameState.gameDescription();
+        return printerState.gameDescription();
     }
 
     public String board() {
         return format(boardTemplate,
                 topLeft(), topCenter(), topRight(),
                 midLeft(), center(), midRight(),
-                downLeft(), downCenter(), downRight());
+                bottomLeft(), bottomCenter(), bottomRight());
     }
 
     public String gameStatus() {
-        return gameState.gameStatus();
+        return printerState.gameStatus();
     }
 
-    interface GameState {
+    interface PrinterState {
         String gameDescription();
         String gameStatus();
     }
 
-    class EmptyBoardState implements GameState {
+    class EmptyBoardState implements PrinterState {
 
         @Override
         public String gameDescription() {
@@ -68,7 +68,7 @@ public class ConsoleTicTacToePrinter {
         }
     }
 
-    class PlayerTurnState implements GameState {
+    class PlayerTurnState implements PrinterState {
 
         private final Player player;
 
@@ -87,7 +87,7 @@ public class ConsoleTicTacToePrinter {
         }
     }
 
-    class PlayerWonState implements GameState {
+    class PlayerWonState implements PrinterState {
 
         private final Player winner;
 
@@ -106,19 +106,36 @@ public class ConsoleTicTacToePrinter {
         }
     }
 
+    class DrawState implements PrinterState {
+
+        @Override
+        public String gameDescription() {
+            return format("No More Turns Left :-)");
+        }
+
+        @Override
+        public String gameStatus() {
+            return format("GAME ENDS WITH A DRAW!");
+        }
+    }
+
     //
     // Boring methods
     //
 
-    String topLeft() {    return (isEmpty(snapshot.topLeft()))    ? BLANK : Character.toString(snapshot.topLeft()); }
-    String topCenter() {  return (isEmpty(snapshot.topCenter()))  ? BLANK : Character.toString(snapshot.topCenter()); }
-    String topRight() {   return (isEmpty(snapshot.topRight()))   ? BLANK : Character.toString(snapshot.topRight()); }
-    String midLeft() {    return (isEmpty(snapshot.midLeft()))    ? BLANK : Character.toString(snapshot.midLeft()); }
-    String center() {     return (isEmpty(snapshot.center()))     ? BLANK : Character.toString(snapshot.center()); }
-    String midRight() {   return (isEmpty(snapshot.midRight()))   ? BLANK : Character.toString(snapshot.midRight()); }
-    String downLeft() {   return (isEmpty(snapshot.downLeft()))   ? BLANK : Character.toString(snapshot.downLeft()); }
-    String downCenter() { return (isEmpty(snapshot.downCenter())) ? BLANK : Character.toString(snapshot.downCenter()); }
-    String downRight() {  return (isEmpty(snapshot.downRight()))  ? BLANK : Character.toString(snapshot.downRight());}
+    String topLeft() {      return markAt(snapshot.topLeft()); }
+    String topCenter() {    return markAt(snapshot.topCenter()); }
+    String topRight() {     return markAt(snapshot.topRight()); }
+    String midLeft() {      return markAt(snapshot.midLeft()); }
+    String center() {       return markAt(snapshot.center()); }
+    String midRight() {     return markAt(snapshot.midRight()); }
+    String bottomLeft() {   return markAt(snapshot.bottomLeft()); }
+    String bottomCenter() { return markAt(snapshot.bottomCenter()); }
+    String bottomRight() {  return markAt(snapshot.bottomRight());}
+
+    private String markAt(char c) {
+        return (isEmpty(c)) ? BLANK : Character.toString(c);
+    }
 
     private boolean isEmpty(char c) {
         return !Character.isLetter(c);
