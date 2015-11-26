@@ -82,7 +82,7 @@ public class BoardTest {
     // Validation
 
     @Test
-    public void dontChangeTurnWhenPlayerTriesToMarkAnAlreadyOccupiedCellInTheBoard() {// again, this regards turns not board (needs refactor to improve the design)
+    public void doNotChangeTurnWhenPlayerTriesToMarkAnAlreadyOccupiedCellInTheBoard() {// again, this regards turns not board (needs refactor to improve the design)
         // given
         Board board = emptyBoard();
         assertThat(board.currentTurn(), is(1));
@@ -98,6 +98,21 @@ public class BoardTest {
         // then
         assertThat(board.currentPlayer(), is(Player.O));
         assertThat(board.currentTurn(), is(2));
+    }
+
+    @Test
+    public void doNotChangeTurnWhenPlayerChoosesUnknownCellInTheBoard() {
+        // given
+        Board board = emptyBoard();
+        assertThat(board.currentTurn(), is(1));
+        assertThat(board.currentPlayer(), is(Player.X));
+
+        // when
+        board.playerChooses(UNKNOWN);
+
+        // then
+        assertThat(board.currentTurn(), is(1));
+        assertThat(board.currentPlayer(), is(Player.X));
     }
 
     //

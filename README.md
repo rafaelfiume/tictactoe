@@ -26,7 +26,7 @@ To mark a position in the grid, imagine a telephone dial:
 * ~~Cross platform game (now working on Windows as well)~~
 * Play the game in BOT mode
 * ~~Validate player input (player selects an already marked cell in the board)~~
-* Validate player input (player selects unknown position)
+* ~~Validate player input (player selects unknown position)~~
 * Implement GUI
 * Play against computer AI
 * Play online against remote opponent

@@ -3,8 +3,8 @@ package com.rafaelfiume.tictactoe.matchers;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-import static java.lang.System.lineSeparator;
 import static java.lang.String.format;
+import static java.lang.System.lineSeparator;
 
 public class BoardMatcher extends TypeSafeMatcher<String> {
 

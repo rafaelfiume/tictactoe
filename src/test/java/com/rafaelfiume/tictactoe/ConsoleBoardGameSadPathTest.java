@@ -6,7 +6,6 @@ import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -28,10 +27,25 @@ public class ConsoleBoardGameSadPathTest extends TestState {
     private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(board, consoleInputReader, consoleRenderer);
 
     @Test
-    public void tellPlayerToChooseAnEmptyPlaceInTheBoardWhenShePicksUpOneThatHasBeenAlreadyChosen() throws Exception {
+    public void tellPlayerToChooseAnEmptyCellInTheBoardWhenShePicksUpOneThatHasBeenAlreadyChosen() throws Exception {
         when(player_X_marksTopLeftPosition());
         and(player_O_marksTopLeftPosition());
+        andAppIsUpAndRunning();
 
+        then(theGameDescription(), is("Player O:"));
+        then(theGame(), showsABoardLike(
+                        " X |   |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        "   |   |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        "   |   |   "));
+        then(theGameStatus(), is("Choose Position:"));
+    }
+
+    @Test
+    public void tellPlayerToChooseAValidCellInTheBoardWhenHeEntersAnUnknownPosition() throws Exception {
+        when(player_X_marksTopLeftPosition());
+        and(player_O_entersInvalidCellInTheBoard());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("Player O:"));
@@ -63,6 +77,10 @@ public class ConsoleBoardGameSadPathTest extends TestState {
 
     private ActionUnderTest player_X_marksTopLeftPosition() { return userHitsNumber(1); }
     private ActionUnderTest player_O_marksTopLeftPosition() { return userHitsNumber(1); }
+    private ActionUnderTest player_O_marksCenterPosition() { return userHitsNumber(5); }
+    private ActionUnderTest player_O_entersInvalidCellInTheBoard() {
+        return userHitsNumber(99);
+    }
 
     private ActionUnderTest userHitsNumber(int number) {
         return (givens, capturedInputAndOutputs) -> {

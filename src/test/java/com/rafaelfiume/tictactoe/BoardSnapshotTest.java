@@ -1,8 +1,6 @@
 package com.rafaelfiume.tictactoe;
 
 import com.rafaelfiume.tictactoe.support.BoardBuilder;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import static com.rafaelfiume.tictactoe.BoardPosition.*;

@@ -1,5 +1,6 @@
 package com.rafaelfiume.tictactoe;
 
+import static com.rafaelfiume.tictactoe.BoardPosition.UNKNOWN;
 import static java.lang.Character.isLetter;
 
 public class Board {
@@ -59,7 +60,8 @@ public class Board {
     }
 
     private boolean markPositionIfAvailable(BoardPosition position) {
-        if (cellIsMarkedAt(grid[position.row()][position.column()])) {
+        if (position == UNKNOWN
+                || cellIsMarkedAt(grid[position.row()][position.column()])) {
             return false;
         }
 

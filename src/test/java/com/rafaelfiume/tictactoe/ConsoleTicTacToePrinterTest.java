@@ -88,4 +88,22 @@ public class ConsoleTicTacToePrinterTest {
                         "   |   |   "));
         assertThat(print.gameStatus(), is("Choose Position:"));
     }
+
+    @Test
+    public void printPlayerHasToChooseAnotherCellInTheBoardWhenHePicksUpAnUnknownOne() {
+        final Board board = new BoardBuilder()
+                .withPlayerXChoosingAnUnknownCell()
+                .build().currentGameSnapshot();
+
+        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(board);
+
+        assertThat(print.gameDescription(), is("Player X:"));
+        assertThat(print.board(), showsABoardLike(
+                        "   |   |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        "   |   |   " + lineSeparator() +
+                        "---+---+---" + lineSeparator() +
+                        "   |   |   "));
+        assertThat(print.gameStatus(), is("Choose Position:"));
+    }
 }

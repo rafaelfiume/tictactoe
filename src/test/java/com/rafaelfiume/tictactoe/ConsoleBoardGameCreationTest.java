@@ -3,19 +3,15 @@ package com.rafaelfiume.tictactoe;
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.*;
 import com.rafaelfiume.tictactoe.matchers.BoardMatcher;
-import com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher;
-import com.rafaelfiume.tictactoe.support.BoardBuilder;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 
 import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
 
 @RunWith(SpecRunner.class)
 public class ConsoleBoardGameCreationTest extends TestState {

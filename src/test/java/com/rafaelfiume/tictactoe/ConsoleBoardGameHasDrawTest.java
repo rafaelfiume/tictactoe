@@ -6,7 +6,6 @@ import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

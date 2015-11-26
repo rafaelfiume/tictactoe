@@ -3,7 +3,6 @@ package com.rafaelfiume.tictactoe.support;
 import com.rafaelfiume.tictactoe.BoardPosition;
 import com.rafaelfiume.tictactoe.ConsoleInputReader;
 
-import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 

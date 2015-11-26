@@ -58,6 +58,11 @@ public class BoardBuilder {
         return this;
     }
 
+    public BoardBuilder withPlayerXChoosingAnUnknownCell() {
+        board.playerChooses(UNKNOWN);
+        return this;
+    }
+
     public Board build() {
         return board;
     }
