@@ -13,12 +13,12 @@ import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class ConsoleTicTacToePrinterTest {
+public class TicTacToePrinterTest {
 
     @Test
     public void printEmptyBoardWhenThereAreNoMovesYet() {
         final Board emptyBoard = emptyBoard().currentGameSnapshot();
-        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(emptyBoard);
+        final TicTacToePrinter print = new TicTacToePrinter(emptyBoard);
 
         assertThat(print.gameDescription(), is("Game Board Creation..."));
         assertThat(print.board(), is(anEmptyBoard()));
@@ -28,7 +28,7 @@ public class ConsoleTicTacToePrinterTest {
     @Test
     public void printPlayerXWinsWhenHeGetsThreeInAVerticalRow() {
         final Board playerXWon = aBoardWithPlayerXWinningWithVerticalLineOnTheLeft().currentGameSnapshot();
-        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(playerXWon);
+        final TicTacToePrinter print = new TicTacToePrinter(playerXWon);
 
         assertThat(print.gameDescription(), is("Player X:"));
         assertThat(print.board(), showsABoardLike(
@@ -43,7 +43,7 @@ public class ConsoleTicTacToePrinterTest {
     @Test
     public void printPlayerOWinsWhenSheStrikesHorizontalVictory() {
         final Board playerOWon = aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom().currentGameSnapshot();
-        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(playerOWon);
+        final TicTacToePrinter print = new TicTacToePrinter(playerOWon);
 
         assertThat(print.gameDescription(), is("Player O:"));
         assertThat(print.board(), showsABoardLike(
@@ -58,7 +58,7 @@ public class ConsoleTicTacToePrinterTest {
     @Test
     public void printGameEndsWithDrawWhenThereAreNoMoreTurnsAndNoWinners() {
         final Board draw = BoardBuilder.aBoardWithAGameEndingWithADraw().currentGameSnapshot();
-        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(draw);
+        final TicTacToePrinter print = new TicTacToePrinter(draw);
 
         assertThat(print.gameDescription(), is("No More Turns Left :-)"));
         assertThat(print.board(), showsABoardLike(
@@ -77,7 +77,7 @@ public class ConsoleTicTacToePrinterTest {
                 .withPlayerOChoosing(TOP_RIGHT)
                 .build().currentGameSnapshot();
 
-        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(boardWithDisputedCell);
+        final TicTacToePrinter print = new TicTacToePrinter(boardWithDisputedCell);
 
         assertThat(print.gameDescription(), is("Player O:"));
         assertThat(print.board(), showsABoardLike(
@@ -95,7 +95,7 @@ public class ConsoleTicTacToePrinterTest {
                 .withPlayerXChoosingAnUnknownCell()
                 .build().currentGameSnapshot();
 
-        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(board);
+        final TicTacToePrinter print = new TicTacToePrinter(board);
 
         assertThat(print.gameDescription(), is("Player X:"));
         assertThat(print.board(), showsABoardLike(

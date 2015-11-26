@@ -1,5 +1,6 @@
-package com.rafaelfiume.tictactoe;
+package com.rafaelfiume.tictactoe.console;
 
+import com.rafaelfiume.tictactoe.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

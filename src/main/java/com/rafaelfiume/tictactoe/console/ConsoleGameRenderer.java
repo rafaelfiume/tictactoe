@@ -1,11 +1,14 @@
-package com.rafaelfiume.tictactoe;
+package com.rafaelfiume.tictactoe.console;
+
+import com.rafaelfiume.tictactoe.Board;
+import com.rafaelfiume.tictactoe.TicTacToePrinter;
 
 import static java.lang.System.lineSeparator;
 
 public class ConsoleGameRenderer {
 
     public String render(Board gameSnapshot) {
-        final ConsoleTicTacToePrinter print = new ConsoleTicTacToePrinter(gameSnapshot);
+        final TicTacToePrinter print = new TicTacToePrinter(gameSnapshot);
         return String.format(
                 "%s" + lineSeparator() +
                 "%s" + lineSeparator() + lineSeparator() +

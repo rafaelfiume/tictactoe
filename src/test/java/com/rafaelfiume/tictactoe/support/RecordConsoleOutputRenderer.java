@@ -1,7 +1,7 @@
 package com.rafaelfiume.tictactoe.support;
 
 import com.rafaelfiume.tictactoe.Board;
-import com.rafaelfiume.tictactoe.ConsoleGameRenderer;
+import com.rafaelfiume.tictactoe.console.ConsoleGameRenderer;
 
 import static java.lang.System.lineSeparator;
 

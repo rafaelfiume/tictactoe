@@ -3,7 +3,7 @@ package com.rafaelfiume.tictactoe;
 import static java.lang.String.format;
 import static java.lang.System.lineSeparator;
 
-public class ConsoleTicTacToePrinter {
+public class TicTacToePrinter {
 
     private static final String BLANK = " ";
     private static final String CHOOSE_POSITION = "Choose Position:";
@@ -19,7 +19,7 @@ public class ConsoleTicTacToePrinter {
             "---+---+---"    + lineSeparator() +
             " %s | %s | %s ";
 
-    public ConsoleTicTacToePrinter(Board currentSnapshot) {
+    public TicTacToePrinter(Board currentSnapshot) {
         this.snapshot = currentSnapshot;
         this.printerState = printerStateFrom(currentSnapshot);
     }

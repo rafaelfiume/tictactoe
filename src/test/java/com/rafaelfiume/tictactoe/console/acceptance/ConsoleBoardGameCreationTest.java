@@ -1,7 +1,9 @@
-package com.rafaelfiume.tictactoe;
+package com.rafaelfiume.tictactoe.console.acceptance;
 
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.state.givenwhenthen.*;
+import com.rafaelfiume.tictactoe.Board;
+import com.rafaelfiume.tictactoe.console.ConsoleGameRunner;
 import com.rafaelfiume.tictactoe.matchers.BoardMatcher;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;

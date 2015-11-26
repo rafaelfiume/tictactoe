@@ -1,4 +1,6 @@
-package com.rafaelfiume.tictactoe;
+package com.rafaelfiume.tictactoe.console;
+
+import com.rafaelfiume.tictactoe.BoardPosition;
 
 import java.util.Scanner;
 
