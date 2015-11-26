@@ -20,7 +20,7 @@ public class ConsoleTicTacToeHasDrawTest extends AbstractConsoleTicTacToeTest {
 
     @Test
     public void gameEndsInADrawWhenPlayersCantGetThreeInARowBeforeTurnsEnd() throws Exception {
-        when(player_X_marksTopLeftPosition());
+        given(player_X_marksTopLeftPosition());
         and(player_O_marksCenterPosition());
         and(player_X_marksMidLeftPosition());
         and(player_O_marksDownLeftPosition());
@@ -28,7 +28,8 @@ public class ConsoleTicTacToeHasDrawTest extends AbstractConsoleTicTacToeTest {
         and(player_O_marksDownRightPosition());
         and(player_X_marksDownCenterPosition());
         and(player_O_marksTopCenterPosition());
-        and(player_X_marksMidRightPosition());
+
+        when(player_X_marksMidRightPosition());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("No More Turns Left :-)"));

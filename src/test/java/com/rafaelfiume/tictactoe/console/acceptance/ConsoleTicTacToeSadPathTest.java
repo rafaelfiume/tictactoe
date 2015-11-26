@@ -20,8 +20,9 @@ public class ConsoleTicTacToeSadPathTest extends AbstractConsoleTicTacToeTest {
 
     @Test
     public void tellPlayerToChooseAnEmptyCellInTheBoardWhenShePicksUpOneThatHasBeenAlreadyChosen() throws Exception {
-        when(player_X_marksTopLeftPosition());
-        and(player_O_marksTopLeftPosition());
+        given(player_X_marksTopLeftPosition());
+
+        when(player_O_marksTopLeftPosition());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("Player O:"));
@@ -36,8 +37,9 @@ public class ConsoleTicTacToeSadPathTest extends AbstractConsoleTicTacToeTest {
 
     @Test
     public void tellPlayerToChooseAValidCellInTheBoardWhenHeEntersAnUnknownPosition() throws Exception {
-        when(player_X_marksTopLeftPosition());
-        and(player_O_entersInvalidCellInTheBoard());
+        given(player_X_marksTopLeftPosition());
+
+        when(player_O_entersInvalidCellInTheBoard());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("Player O:"));

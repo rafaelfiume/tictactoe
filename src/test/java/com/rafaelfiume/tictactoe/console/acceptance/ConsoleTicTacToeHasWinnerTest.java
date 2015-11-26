@@ -20,11 +20,12 @@ public class ConsoleTicTacToeHasWinnerTest extends AbstractConsoleTicTacToeTest 
 
     @Test
     public void playerXWinsWhenGettingThreeInAVerticalRow() throws Exception {
-        when(player_X_marksTopLeftPosition());
+        given(player_X_marksTopLeftPosition());
         and(player_O_marksCenterPosition());
         and(player_X_marksMidLeftPosition());
         and(player_O_marksMidRightPosition());
-        and(player_X_marksDownLeftPosition());
+
+        when(player_X_marksDownLeftPosition());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("Player X:"));
@@ -39,12 +40,13 @@ public class ConsoleTicTacToeHasWinnerTest extends AbstractConsoleTicTacToeTest 
 
     @Test
     public void playerOWinsWhenGettingThreeInAHorizontalRow() throws Exception {
-        when(player_X_marksTopLeftPosition());
+        given(player_X_marksTopLeftPosition());
         and(player_O_marksCenterPosition());
         and(player_X_marksTopCenterPosition());
         and(player_O_marksMidLeftPosition());
         and(player_X_marksDownLeftPosition());
-        and(player_O_marksMidRightPosition());
+
+        when(player_O_marksMidRightPosition());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("Player O:"));
@@ -59,11 +61,12 @@ public class ConsoleTicTacToeHasWinnerTest extends AbstractConsoleTicTacToeTest 
 
     @Test
     public void playerXWinsWhenGettingThreeInADiagonalRow() throws Exception {
-        when(player_X_marksTopLeftPosition());
+        given(player_X_marksTopLeftPosition());
         and(player_O_marksMidLeftPosition());
         and(player_X_marksCenterPosition());
         and(player_O_marksMidRightPosition());
-        and(player_X_marksDownRightPosition());
+
+        when(player_X_marksDownRightPosition());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("Player X:"));

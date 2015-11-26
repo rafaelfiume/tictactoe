@@ -52,6 +52,11 @@ public abstract class AbstractConsoleTicTacToeTest extends TestState {
         };
     }
 
+    protected TestState given(ActionUnderTest actionUnderTest) throws Exception {
+        // Bypassing Yatspec framework since its original given implementation is not helping much in these tests (tests are reading way better now)
+        return when(actionUnderTest);
+    }
+
     protected TestState and(ActionUnderTest actionUnderTest) throws Exception {
         return when(actionUnderTest);
     }
