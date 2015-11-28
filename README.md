@@ -29,7 +29,7 @@ If you want the TicTacToe to run in Bot Mode: pass "botmode" in the first progra
 
 ## TODO List - or Stories Being Played ;)
 
-### Playing TicTacToe using a terminal (Parent Story)
+### ~~Playing TicTacToe using a terminal (Parent Story)~~
 * ~~Board creation~~
 * ~~Player X wins with vertical line~~
 * ~~Player O wins with horizontal line~~
