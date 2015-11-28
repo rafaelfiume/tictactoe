@@ -1,5 +1,12 @@
 package com.rafaelfiume.tictactoe.console.acceptance;
 
+import com.googlecode.yatspec.junit.SpecResultListener;
+import com.googlecode.yatspec.junit.WithCustomResultListeners;
+import com.googlecode.yatspec.plugin.sequencediagram.SequenceDiagramGenerator;
+import com.googlecode.yatspec.plugin.sequencediagram.SvgWrapper;
+import com.googlecode.yatspec.rendering.html.DontHighlightRenderer;
+import com.googlecode.yatspec.rendering.html.HtmlResultRenderer;
+import com.googlecode.yatspec.rendering.html.index.HtmlIndexRenderer;
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
@@ -9,7 +16,9 @@ import com.rafaelfiume.tictactoe.console.ConsoleGameRunner;
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
 
-public abstract class AbstractConsoleTicTacToeTest extends TestState {
+import static com.googlecode.totallylazy.Sequences.sequence;
+
+public abstract class AbstractConsoleTicTacToeTest extends TestState implements WithCustomResultListeners {
 
     // TODO RF 26/11/15 Proposal to extract Turn from Board...
     //private final Board board = new Board();
@@ -19,6 +28,16 @@ public abstract class AbstractConsoleTicTacToeTest extends TestState {
     private final ConsoleInputReaderStub consoleInputReader = new ConsoleInputReaderStub();
     private final RecordConsoleOutputRenderer consoleRenderer = new RecordConsoleOutputRenderer();
     private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(new Board(), consoleInputReader, consoleRenderer);
+
+    @Override
+    public Iterable<SpecResultListener> getResultListeners() throws Exception {
+        return sequence(
+                new HtmlResultRenderer().
+                        withCustomHeaderContent(SequenceDiagramGenerator.getHeaderContentForModalWindows()).
+                        withCustomRenderer(SvgWrapper.class, new DontHighlightRenderer()),
+                new HtmlIndexRenderer()).
+                safeCast(SpecResultListener.class);
+    }
 
     protected ActionUnderTest player_X_marksTopLeftPosition() { return userHitsNumber(1); }
     protected ActionUnderTest player_O_marksTopLeftPosition() { return userHitsNumber(1); }

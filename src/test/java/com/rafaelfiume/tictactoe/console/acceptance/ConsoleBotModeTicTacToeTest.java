@@ -1,6 +1,13 @@
 package com.rafaelfiume.tictactoe.console.acceptance;
 
+import com.googlecode.yatspec.junit.SpecResultListener;
 import com.googlecode.yatspec.junit.SpecRunner;
+import com.googlecode.yatspec.junit.WithCustomResultListeners;
+import com.googlecode.yatspec.plugin.sequencediagram.SequenceDiagramGenerator;
+import com.googlecode.yatspec.plugin.sequencediagram.SvgWrapper;
+import com.googlecode.yatspec.rendering.html.DontHighlightRenderer;
+import com.googlecode.yatspec.rendering.html.HtmlResultRenderer;
+import com.googlecode.yatspec.rendering.html.index.HtmlIndexRenderer;
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
@@ -17,13 +24,14 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
-public class ConsoleBotModeTicTacToeTest extends TestState {
+public class ConsoleBotModeTicTacToeTest extends TestState implements WithCustomResultListeners {
 
     private static final int TURN_DURATION_IN_SECONDS = 0;
 
@@ -40,6 +48,16 @@ public class ConsoleBotModeTicTacToeTest extends TestState {
         given(appIsUpAndRunningInBotMode());
 
         then(theGameStatus(), anyOf(status("PLAYER X WON!"), status("PLAYER O WON!"), orStatus("GAME ENDS WITH A DRAW!")));
+    }
+
+    @Override
+    public Iterable<SpecResultListener> getResultListeners() throws Exception {
+        return sequence(
+                new HtmlResultRenderer().
+                        withCustomHeaderContent(SequenceDiagramGenerator.getHeaderContentForModalWindows()).
+                        withCustomRenderer(SvgWrapper.class, new DontHighlightRenderer()),
+                new HtmlIndexRenderer()).
+                safeCast(SpecResultListener.class);
     }
 
     private GivensBuilder appIsUpAndRunningInBotMode() {

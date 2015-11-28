@@ -1,5 +1,12 @@
 # Tic-Tac-Toe [![Build Status](https://travis-ci.org/rafaelfiume/tictactoe.svg?branch=master)](https://travis-ci.org/rafaelfiume/tictactoe)
 
+A simple Tic-Tac-Toe console game implementation demonstrating design and TDD techniques.
+
+You can see the specification [here](http://rafaelfiume.github.io/tictactoe), generated from the source code of the test classes
+in the package .tictactoe.console.acceptance and automatically updated when pushing code into master.
+
+## How to Play It
+
 To mark a position in the grid, imagine a telephone dial:
 
     1 | 2 | 3
@@ -8,7 +15,7 @@ To mark a position in the grid, imagine a telephone dial:
     ---+---+---
     7 | 8 | 9
 
-## Running the application locally
+## Running the Application Locally
 
 Build with:
 
@@ -16,7 +23,7 @@ Build with:
 
 Run with ConsoleGameRunner class.
 
-## BOT mode
+## BOT Mode
 
 If you want the TicTacToe to run in Bot Mode: pass "botmode" in the first program argument.
 
