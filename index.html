@@ -1,1 +1,328 @@
-"My Page" 
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Yatspec Index</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+
+    <style type="text/css">
+            /* <![CDATA[ */
+html, body {
+    margin: 1em 2ex 2em;
+    padding: 0;
+    background-color: #fff;
+    color: #000;
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    font-size: 10pt;
+}
+
+h1, h2, h3, h4, h5, h6, th {
+    text-transform: capitalize;
+}
+
+h1 {
+    font-size: 170%;
+}
+
+h2 {
+    font-size: 150%;
+}
+
+h3 {
+    font-size: 140%;
+}
+
+h4 {
+    font-size: 130%;
+}
+
+h5 {
+    font-size: 120%;
+}
+
+h6 {
+    font-size: 110%;
+}
+
+.highlight {
+    background-color: #E8EEF7;
+    border: 1px solid #C3D9FF;
+    padding: 5px;
+    font: 10pt Arial, sans-serif;
+}
+
+.highlight .literal {
+    color: #066;
+}
+
+.highlight .keyword {
+    color: #008;
+}
+
+.highlight .constant {
+    color: #606;
+}
+
+.highlight .quote {
+    color: #080;
+}
+
+.highlight.specification .literal,
+.highlight.specification .keyword,
+.highlight.specification .constant,
+.highlight.specification .quote {
+    font-weight: bold;
+}
+
+pre.test-not-run, .test-not-run, .interestingGiven {
+    background-color: #FFF4CC;
+    border: 2px solid #FFBB66;
+}
+
+.interestingGiven {
+    padding: 0 2px;
+}
+
+pre.test-failed, .test-failed {
+    background-color: #FFF6FF;
+    border: 2px solid #FDA8A8;
+}
+
+pre.test-passed, .test-passed {
+    background-color: #F2FFEE;
+    border: 2px solid #A5DDAD;
+}
+
+li.test-not-run, li.test-passed {
+    border: none;
+}
+
+ul.contents a {
+    text-transform: capitalize;
+}
+
+a, table a {
+    color: #660066;
+    text-decoration: none;
+}
+
+a:hover, table a:hover {
+    text-decoration: underline;
+}
+
+table {
+    background-color: #F5F9FD;
+    border: 1px solid #C3D9FF;
+    border-collapse: collapse;
+    empty-cells: show;
+}
+
+th {
+    background-color: #E8EEF7;
+    border: 1px solid #C3D9FF;
+}
+
+td {
+    border: 1px solid #C3D9FF;
+}
+
+div.contents, div.testmethod {
+    margin-bottom: 40px;
+}
+
+.scenarios td {
+    padding: 0 20px;
+    text-align: center;
+}
+
+.scenarios, .scenario {
+    margin-bottom: 20px;
+}
+
+.scenario {
+    background-color: #F5F9FD;
+    border: 1px solid #C3D9FF;
+    padding: 0 10px;
+}
+
+h2 {
+    margin-top: 10px;
+}
+
+pre {
+    margin-bottom: 32px;
+}
+
+div.example {
+    margin-bottom: 64px;
+}
+
+.hide {
+    display: none;
+}
+
+.logKey {
+    cursor: pointer;
+}
+
+.logKey:hover {
+    text-decoration: underline;
+}
+
+.interestingGivens th {
+    text-align: left;
+}
+
+.interestingGivens td {
+    text-align: right;
+    padding: 0 5px;
+    vertical-align: middle;
+}
+
+.logValue {
+    white-space: pre-wrap;
+    margin-bottom: 32px;
+}
+
+.package-name {
+    cursor: pointer;
+}
+
+.package-name:hover {
+    text-decoration: underline;
+}
+
+dt {
+    font-weight: bold;
+    margin: 0px;
+    padding: 2px;
+}
+
+dd {
+    font-weight: normal;
+    margin-top:  0px;
+    margin-bottom:  1px;
+    margin-left:  20px;
+    margin-right:  0px;
+    padding: 2px;
+    padding-right: 0px;
+}
+
+dl {
+    margin: 0px;
+}
+dl.index-result {
+    padding: 10px;
+}
+.index-result dt {
+    margin-bottom: 5px;
+}
+.index-result dd {
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+.section div {
+    width:100%;
+}
+.section .section-header {
+    padding: 2px;
+    cursor: pointer;
+}
+
+.section .section-body {
+    display: block;
+    padding : 5px;
+}
+
+
+            /* ]]> */
+    </style>
+    
+
+    <script type="text/javascript">
+        // <![CDATA[
+$(document).ready(function () {
+    $('.package-name', this).click(function() {
+       $(this).siblings("dd").toggleClass("hide");
+    });
+});
+
+        // ]]>
+    </script>
+    
+</head>
+<body>
+
+<h1>Index</h1>
+
+<div class="contents">
+<dl >
+    <dt class="package-name test-passed">Com</dt>
+
+    <dd>
+<dl >
+    <dt class="package-name test-passed">Rafaelfiume</dt>
+
+    <dd>
+<dl >
+    <dt class="package-name test-passed">Tictactoe</dt>
+
+    <dd>
+<dl >
+    <dt class="package-name test-passed">Console</dt>
+
+    <dd>
+<dl >
+    <dt class="package-name test-passed">Acceptance</dt>
+
+    <dd>
+<dl class="test-passed index-result">
+        <dt><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeHasWinnerTest.html">Console tic tac toe has winner</a></dt>
+<dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeHasWinnerTest.html#playerXWinsWhenGettingThreeInAVerticalRow">Player x wins when getting three in a vertical row</a></dd><dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeHasWinnerTest.html#playerOWinsWhenGettingThreeInAHorizontalRow">Player o wins when getting three in a horizontal row</a></dd><dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeHasWinnerTest.html#playerXWinsWhenGettingThreeInADiagonalRow">Player x wins when getting three in a diagonal row</a></dd>
+    </dl>
+    </dd>
+    
+    <dd>
+<dl class="test-passed index-result">
+        <dt><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeSadPathTest.html">Console tic tac toe sad path</a></dt>
+<dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeSadPathTest.html#tellPlayerToChooseAnEmptyCellInTheBoardWhenShePicksUpOneThatHasBeenAlreadyChosen">Tell player to choose an empty cell in the board when she picks up one that has been already chosen</a></dd><dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeSadPathTest.html#tellPlayerToChooseAValidCellInTheBoardWhenHeEntersAnUnknownPosition">Tell player to choose a valid cell in the board when he enters an unknown position</a></dd>
+    </dl>
+    </dd>
+    
+    <dd>
+<dl class="test-passed index-result">
+        <dt><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleBotModeTicTacToeTest.html">Console bot mode tic tac toe</a></dt>
+<dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleBotModeTicTacToeTest.html#computerDoesAllThePlayingWhenTicTacToeIsInBotMode">Computer does all the playing when tic tac toe is in bot mode</a></dd>
+    </dl>
+    </dd>
+    
+    <dd>
+<dl class="test-passed index-result">
+        <dt><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeHasDrawTest.html">Console tic tac toe has draw</a></dt>
+<dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeHasDrawTest.html#gameEndsInADrawWhenPlayersCantGetThreeInARowBeforeTurnsEnd">Game ends in a draw when players cant get three in a row before turns end</a></dd>
+    </dl>
+    </dd>
+    
+    <dd>
+<dl class="test-passed index-result">
+        <dt><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeCreationTest.html">Console tic tac toe creation</a></dt>
+<dd class="test-passed "><a href="com/rafaelfiume/tictactoe/console/acceptance/ConsoleTicTacToeCreationTest.html#appDisplaysBoardToUsersWhenItStarts">App displays board to users when it starts</a></dd>
+    </dl>
+    </dd>
+    
+</dl>
+    </dd>
+    
+</dl>
+    </dd>
+    
+</dl>
+    </dd>
+    
+</dl>
+    </dd>
+    
+</dl>
+</div>
+</body>
+</html>
