@@ -1,10 +1,9 @@
 package com.rafaelfiume.tictactoe.console;
 
-import com.rafaelfiume.tictactoe.*;
+import com.rafaelfiume.tictactoe.Board;
+import com.rafaelfiume.tictactoe.BoardPosition;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
 
 import static com.rafaelfiume.tictactoe.BoardPosition.TOP_LEFT;
@@ -17,8 +16,6 @@ public class ConsoleGameRunnerTest {
     private ConsoleGameRenderer consoleRenderer = mock(ConsoleGameRenderer.class);
 
     private final ConsoleGameRunner consoleRunner = new ConsoleGameRunner(board, consoleInputReader, consoleRenderer);
-
-    @Captor ArgumentCaptor<Board> captor;
 
     @Before
     public void init(){

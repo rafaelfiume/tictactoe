@@ -1,9 +1,9 @@
-# Tic-Tac-Toe [![Build Status](https://travis-ci.org/rafaelfiume/tictactoe.svg?branch=master)](https://travis-ci.org/rafaelfiume/tictactoe)
+# Tic-Tac-Toe [![Build Status](https://travis-ci.org/rafaelfiume/tictactoe.svg?branch=master)](https://travis-ci.org/rafaelfiume/tictactoe) [![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/tictactoe/blob/master/LICENSE)
 
 A simple Tic-Tac-Toe console game implementation demonstrating design and TDD techniques.
 
 You can see the specification [here](http://rafaelfiume.github.io/tictactoe), generated from the source code of the test classes
-in the package .tictactoe.console.acceptance and automatically updated when pushing code into master.
+in the [acceptance](https://github.com/rafaelfiume/tictactoe/tree/master/src/test/java/com/rafaelfiume/tictactoe/console/acceptance) package and automatically updated when pushing code into master.
 
 ## How to Play It
 
