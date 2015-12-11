@@ -2,8 +2,8 @@
 
 A simple Tic-Tac-Toe console game implementation demonstrating design and TDD techniques.
 
-You can see the specification [here](http://rafaelfiume.github.io/tictactoe), generated from the source code of the test classes
-in the [acceptance](https://github.com/rafaelfiume/tictactoe/tree/master/src/test/java/com/rafaelfiume/tictactoe/console/acceptance) package and automatically updated when pushing code into master.
+The project specification is available [here](http://rafaelfiume.github.io/tictactoe), generated from the source code of the test classes
+in the [acceptance](https://github.com/rafaelfiume/tictactoe/tree/master/src/test/java/com/rafaelfiume/tictactoe/console/acceptance) package, and automatically updated when pushing code into master.
 
 ## How to Play It
 
@@ -23,7 +23,7 @@ Build with:
 
 Run with ConsoleGameRunner class.
 
-## BOT Mode
+### BOT Mode
 
 If you want the TicTacToe to run in Bot Mode: pass "botmode" in the first program argument.
 
