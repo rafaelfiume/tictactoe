@@ -10,7 +10,7 @@ public class BotConsoleInputReader implements ConsoleInputReader {
 
     private final int turnDurationInSeconds;
 
-    private final RandonPositionGenerator positionGenerator = new RandonPositionGenerator();
+    private final RandomPositionGenerator positionGenerator = new RandomPositionGenerator();
 
     public BotConsoleInputReader(int turnDurationInSeconds) {
         this.turnDurationInSeconds = turnDurationInSeconds * 1000;
@@ -30,15 +30,15 @@ public class BotConsoleInputReader implements ConsoleInputReader {
         }
     }
 
-    static class RandonPositionGenerator {
+    private static class RandomPositionGenerator {
 
         private static final int MAX_POSITION = 9;
 
-        private final List<Integer> availablePositions = new ArrayList();
+        private final List<Integer> availablePositions = new ArrayList<>();
 
         private int cursor = 0;
 
-        RandonPositionGenerator() {
+        RandomPositionGenerator() {
             for (int i = 1; i <= MAX_POSITION; i++) {
                 availablePositions.add(i);
             }

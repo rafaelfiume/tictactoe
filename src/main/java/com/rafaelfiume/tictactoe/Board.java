@@ -3,7 +3,7 @@ package com.rafaelfiume.tictactoe;
 import static com.rafaelfiume.tictactoe.BoardPosition.UNKNOWN;
 import static java.lang.Character.isLetter;
 
-public class Board {
+public class Board implements Turn {
 
     private final char[][] grid;
 
@@ -20,32 +20,8 @@ public class Board {
         this.grid = grid;
     }
 
-    public boolean gameHasNotStarted() {
-        return !gameStarted;
-    }
-
     public boolean gameIsRunning() {
         return !isGameOver();
-    }
-
-    public boolean isGameOver() {
-        return gameIsOverWithAWinner() || gameIsOverWithADraw();
-    }
-
-    public boolean gameIsOverWithAWinner() {
-        return hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner();
-    }
-
-    public boolean gameIsOverWithADraw() {
-        return noMoreTurns() && !gameIsOverWithAWinner();
-    }
-
-    public Player winner() {
-        return (gameIsOverWithAWinner()) ? currentPlayer : null;
-    }
-
-    public Player currentPlayer() {
-        return currentPlayer;
     }
 
     public void playerChooses(BoardPosition boardPosition) {
@@ -59,16 +35,6 @@ public class Board {
         this.gameStarted = true;
     }
 
-    private boolean markPositionIfAvailable(BoardPosition position) {
-        if (position == UNKNOWN
-                || cellIsMarkedAt(grid[position.row()][position.column()])) {
-            return false;
-        }
-
-        grid[position.row()][position.column()] = currentPlayer.symbol();
-        return true;
-    }
-
     public Board currentGameSnapshot() {
         final Board snapshot = new Board(cloneArray(grid));
         snapshot.currentPlayer = this.currentPlayer;
@@ -78,9 +44,34 @@ public class Board {
         return snapshot;
     }
 
+    boolean gameHasNotStarted() {
+        return !gameStarted;
+    }
+
+    boolean isGameOver() {
+        return gameIsOverWithAWinner() || gameIsOverWithADraw();
+    }
+
+    boolean gameIsOverWithAWinner() {
+        return hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner();
+    }
+
+    boolean gameIsOverWithADraw() {
+        return noMoreTurns() && !gameIsOverWithAWinner();
+    }
+
+    Player winner() {
+        return (gameIsOverWithAWinner()) ? currentPlayer : null;
+    }
+
+    Player currentPlayer() {
+        return currentPlayer;
+    }
+
     char topLeft() {      return grid[0][0]; }
 
     char topCenter() {    return grid[0][1]; }
+
     char topRight() {     return grid[0][2]; }
     char midLeft() {      return grid[1][0]; }
     char center() {       return grid[1][1]; }
@@ -88,13 +79,22 @@ public class Board {
     char bottomLeft() {   return grid[2][0]; }
     char bottomCenter() { return grid[2][1]; }
     char bottomRight() {  return grid[2][2]; }
-
     int currentTurn() {
         return currentTurn;
     }
 
     private boolean noMoreTurns() {
         return currentTurn == 10;
+    }
+
+    private boolean markPositionIfAvailable(BoardPosition position) {
+        if (position == UNKNOWN
+                || cellIsMarkedAt(grid[position.row()][position.column()])) {
+            return false;
+        }
+
+        grid[position.row()][position.column()] = currentPlayer.symbol();
+        return true;
     }
 
     private Player switchPlayerIfGameIsNotOver() {
@@ -125,12 +125,11 @@ public class Board {
     }
 
     private boolean hasDiagonalWinner() {
-        if (cellIsMarkedAt(topLeft())
+        return (cellIsMarkedAt(topLeft())
                 && (topLeft() == center())
-                && (center() == bottomRight())) {
-            return true;
-        }
-        return cellIsMarkedAt(topRight())
+                && (center() == bottomRight()))
+
+        || cellIsMarkedAt(topRight())
                 && (topRight() == center())
                 && (center() == bottomLeft());
     }
