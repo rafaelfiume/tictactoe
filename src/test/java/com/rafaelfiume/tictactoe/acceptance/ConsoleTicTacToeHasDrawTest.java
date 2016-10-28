@@ -1,13 +1,6 @@
-package com.rafaelfiume.tictactoe.console.acceptance;
+package com.rafaelfiume.tictactoe.acceptance;
 
 import com.googlecode.yatspec.junit.SpecRunner;
-import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
-import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
-import com.googlecode.yatspec.state.givenwhenthen.TestState;
-import com.rafaelfiume.tictactoe.Board;
-import com.rafaelfiume.tictactoe.console.ConsoleGameRunner;
-import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
-import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

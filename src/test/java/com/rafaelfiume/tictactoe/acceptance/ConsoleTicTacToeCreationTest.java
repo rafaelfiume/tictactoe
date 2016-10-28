@@ -1,4 +1,4 @@
-package com.rafaelfiume.tictactoe.console.acceptance;
+package com.rafaelfiume.tictactoe.acceptance;
 
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.rafaelfiume.tictactoe.matchers.BoardMatcher;
