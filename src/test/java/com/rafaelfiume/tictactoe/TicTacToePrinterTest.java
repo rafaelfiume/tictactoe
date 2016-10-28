@@ -7,7 +7,7 @@ import static com.rafaelfiume.tictactoe.BoardPosition.TOP_RIGHT;
 import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
 import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft;
-import static com.rafaelfiume.tictactoe.support.BoardBuilder.aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom;
+import static com.rafaelfiume.tictactoe.support.BoardBuilder.aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom;
 import static com.rafaelfiume.tictactoe.support.BoardBuilder.emptyBoard;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
@@ -17,8 +17,8 @@ public class TicTacToePrinterTest {
 
     @Test
     public void printEmptyBoardWhenThereAreNoMovesYet() {
-        final Board emptyBoard = emptyBoard().currentGameSnapshot();
-        final TicTacToePrinter print = new TicTacToePrinter(emptyBoard);
+        final Game emptyGame = emptyBoard().snapshot();
+        final TicTacToePrinter print = new TicTacToePrinter(emptyGame);
 
         assertThat(print.gameDescription(), is("Game Board Creation..."));
         assertThat(print.board(), is(anEmptyBoard()));
@@ -27,7 +27,7 @@ public class TicTacToePrinterTest {
 
     @Test
     public void printPlayerXWinsWhenHeGetsThreeInAVerticalRow() {
-        final Board playerXWon = aBoardWithPlayerXWinningWithVerticalLineOnTheLeft().currentGameSnapshot();
+        final Game playerXWon = aBoardWithPlayerXWinningWithVerticalLineOnTheLeft().snapshot();
         final TicTacToePrinter print = new TicTacToePrinter(playerXWon);
 
         assertThat(print.gameDescription(), is("Player X:"));
@@ -42,7 +42,7 @@ public class TicTacToePrinterTest {
 
     @Test
     public void printPlayerOWinsWhenSheStrikesHorizontalVictory() {
-        final Board playerOWon = aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom().currentGameSnapshot();
+        final Game playerOWon = aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom().snapshot();
         final TicTacToePrinter print = new TicTacToePrinter(playerOWon);
 
         assertThat(print.gameDescription(), is("Player O:"));
@@ -57,7 +57,7 @@ public class TicTacToePrinterTest {
 
     @Test
     public void printGameEndsWithDrawWhenThereAreNoMoreTurnsAndNoWinners() {
-        final Board draw = BoardBuilder.aBoardWithAGameEndingWithADraw().currentGameSnapshot();
+        final Game draw = BoardBuilder.aGameEndingWithNoWinner().snapshot();
         final TicTacToePrinter print = new TicTacToePrinter(draw);
 
         assertThat(print.gameDescription(), is("No More Turns Left :-)"));
@@ -72,10 +72,10 @@ public class TicTacToePrinterTest {
 
     @Test
     public void printPlayerHasToChooseAnotherCellInTheBoardWhenSheTriesToMarkAnOccupiedSpaceInTheBoard() {
-        final Board boardWithDisputedCell = new BoardBuilder()
+        final Game boardWithDisputedCell = new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
                 .withPlayerOChoosing(TOP_RIGHT)
-                .build().currentGameSnapshot();
+                .build().snapshot();
 
         final TicTacToePrinter print = new TicTacToePrinter(boardWithDisputedCell);
 
@@ -91,9 +91,9 @@ public class TicTacToePrinterTest {
 
     @Test
     public void printPlayerHasToChooseAnotherCellInTheBoardWhenHePicksUpAnUnknownOne() {
-        final Board board = new BoardBuilder()
+        final Game board = new BoardBuilder()
                 .withPlayerXChoosingAnUnknownCell()
-                .build().currentGameSnapshot();
+                .build().snapshot();
 
         final TicTacToePrinter print = new TicTacToePrinter(board);
 

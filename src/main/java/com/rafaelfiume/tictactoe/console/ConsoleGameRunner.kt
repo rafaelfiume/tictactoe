@@ -1,19 +1,20 @@
 package com.rafaelfiume.tictactoe.console
 
 import com.rafaelfiume.tictactoe.Board
+import com.rafaelfiume.tictactoe.Game
 import com.rafaelfiume.tictactoe.GameRenderer
 
 class ConsoleGameRunner(
-        private val board: Board,
+        private val game: Game,
         private val input: ConsoleInputReader,
         private val renderer: GameRenderer) {
 
     fun start() {
-        renderer.show(board.currentGameSnapshot())
+        renderer.show(game.snapshot())
 
-        while (board.gameIsRunning()) {
-            board.playerChooses(input.readUserInput())
-            renderer.show(board.currentGameSnapshot())
+        while (game.gameIsOn()) {
+            game.playerChooses(input.readUserInput())
+            renderer.show(game.snapshot())
         }
     }
 

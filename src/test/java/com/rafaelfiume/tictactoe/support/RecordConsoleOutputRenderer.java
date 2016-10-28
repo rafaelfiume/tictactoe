@@ -1,6 +1,6 @@
 package com.rafaelfiume.tictactoe.support;
 
-import com.rafaelfiume.tictactoe.Board;
+import com.rafaelfiume.tictactoe.Game;
 import com.rafaelfiume.tictactoe.GameRenderer;
 import com.rafaelfiume.tictactoe.console.ConsoleGameRenderer;
 
@@ -12,8 +12,8 @@ public class RecordConsoleOutputRenderer implements GameRenderer {
     private String[] lines;
 
     @Override
-    public String show(Board gameSnapshot) {
-        final String originalContent = originalRenderer.show(gameSnapshot);
+    public String show(Game game) {
+        final String originalContent = originalRenderer.show(game);
         this.lines = originalContent.split(lineSeparator());
         return originalContent;
     }

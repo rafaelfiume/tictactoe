@@ -8,25 +8,18 @@ import com.googlecode.yatspec.plugin.sequencediagram.SvgWrapper;
 import com.googlecode.yatspec.rendering.html.DontHighlightRenderer;
 import com.googlecode.yatspec.rendering.html.HtmlResultRenderer;
 import com.googlecode.yatspec.rendering.html.index.HtmlIndexRenderer;
-import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
 import com.rafaelfiume.tictactoe.Board;
 import com.rafaelfiume.tictactoe.console.BotConsoleInputReader;
 import com.rafaelfiume.tictactoe.console.ConsoleGameRunner;
-import com.rafaelfiume.tictactoe.matchers.BoardMatcher;
-import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.googlecode.totallylazy.Sequences.sequence;
-import static com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.anEmptyBoard;
-import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
@@ -55,7 +48,7 @@ public class ConsoleBotModeTicTacToeTest extends TestState implements WithCustom
         return sequence(
                 new HtmlResultRenderer().
                         withCustomHeaderContent(SequenceDiagramGenerator.getHeaderContentForModalWindows()).
-                        withCustomRenderer(SvgWrapper.class, new DontHighlightRenderer()),
+                        withCustomRenderer(SvgWrapper.class, new DontHighlightRenderer<>()),
                 new HtmlIndexRenderer()).
                 safeCast(SpecResultListener.class);
     }

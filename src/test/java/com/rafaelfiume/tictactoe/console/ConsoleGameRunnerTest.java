@@ -1,7 +1,7 @@
 package com.rafaelfiume.tictactoe.console;
 
-import com.rafaelfiume.tictactoe.Board;
 import com.rafaelfiume.tictactoe.BoardPosition;
+import com.rafaelfiume.tictactoe.Game;
 import com.rafaelfiume.tictactoe.GameRenderer;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +13,11 @@ import static org.mockito.Mockito.*;
 
 public class ConsoleGameRunnerTest {
 
-    private final Board board = mock(Board.class);
+    private final Game game = mock(Game.class);
     private final ConsoleInputReader consoleInputReader = mock(ConsoleInputReader.class);
     private final GameRenderer consoleRenderer = mock(GameRenderer.class);
 
-    private final ConsoleGameRunner consoleRunner = new ConsoleGameRunner(board, consoleInputReader, consoleRenderer);
+    private final ConsoleGameRunner consoleRunner = new ConsoleGameRunner(game, consoleInputReader, consoleRenderer);
 
     @Before
     public void init(){
@@ -26,14 +26,14 @@ public class ConsoleGameRunnerTest {
 
     @Test
     public void passingTopLeftPositionToBoardWhenPlayerSelectsIt() {
-        given(board.currentGameSnapshot()).willReturn(board);
+        given(game.snapshot()).willReturn(game);
 
-        given(board.gameIsRunning()).willReturn(true).willReturn(false); // game is on
+        given(game.gameIsOn()).willReturn(true).willReturn(false);
         given(consoleInputReader.readUserInput()).willReturn(BoardPosition.TOP_LEFT); // user hits top left position
 
         consoleRunner.start();
 
-        verify(board).playerChooses(TOP_LEFT);
+        verify(game).playerChooses(TOP_LEFT);
     }
 
 }

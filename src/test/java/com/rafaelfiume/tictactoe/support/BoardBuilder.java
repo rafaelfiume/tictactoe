@@ -23,7 +23,7 @@ public class BoardBuilder {
                 .build();
     }
 
-    public static Board aBoardWithPlayerOWinningWithAnHorizontalLineOnTheBottom() {
+    public static Board aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom() {
         return new BoardBuilder()
                 .withPlayerXChoosing(TOP_RIGHT)
                 .withPlayerOChoosing(BOTTOM_LEFT)
@@ -34,7 +34,7 @@ public class BoardBuilder {
                 .build();
     }
 
-    public static Board aBoardWithAGameEndingWithADraw() {
+    public static Board aGameEndingWithNoWinner() {
         return new BoardBuilder()
                 .withPlayerXChoosing(TOP_LEFT)
                 .withPlayerOChoosing(CENTER)
