@@ -12,8 +12,8 @@ public class RecordConsoleOutputRenderer implements GameRenderer {
     private String[] lines;
 
     @Override
-    public String render(Board gameSnapshot) {
-        final String originalContent = originalRenderer.render(gameSnapshot);
+    public String show(Board gameSnapshot) {
+        final String originalContent = originalRenderer.show(gameSnapshot);
         this.lines = originalContent.split(lineSeparator());
         return originalContent;
     }
@@ -23,7 +23,7 @@ public class RecordConsoleOutputRenderer implements GameRenderer {
             return "";
         }
 
-        return lines[0];
+        return lines[1];
     }
 
     public String boarGame() {
@@ -31,22 +31,22 @@ public class RecordConsoleOutputRenderer implements GameRenderer {
             return "";
         }
 
-        return lines[1] + lineSeparator() +
-                lines[2] + lineSeparator() +
-                lines[3] + lineSeparator() +
+        return lines[3] + lineSeparator() +
                 lines[4] + lineSeparator() +
-                lines[5];
+                lines[5] + lineSeparator() +
+                lines[6] + lineSeparator() +
+                lines[7];
     }
 
     public String gameStatus() {
-        if (lines.length < 8) {
+        if (lines.length <10) {
             return "";
         }
 
-        final String additionalStatusLine = (lines.length == 10)
-                ? lineSeparator() + lines[8]
+        final String additionalStatusLine = (lines.length == 12)
+                ? lineSeparator() + lines[10]
                 : "";
 
-        return lines[7] + additionalStatusLine;
+        return lines[9] + additionalStatusLine;
     }
 }
