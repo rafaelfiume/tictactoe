@@ -37,12 +37,12 @@ public class BoardPositionTest {
     })
     @Test
     public void mapUserInputToCorrectBoardPosition(String number, String boardPosition) {
-        assertThat(BoardPosition.of(number(number)), is(the(boardPosition)));
+        assertThat(BoardPosition.Companion.of(number(number)), is(the(boardPosition)));
     }
 
     @Test
     public void throwsExceptionWhenPlayersInputIsUnknown() {
-        assertThat(BoardPosition.of(11), is(UNKNOWN));
+        assertThat(BoardPosition.Companion.of(11), is(UNKNOWN));
     }
 
     private BoardPosition the(String boardPosition) {

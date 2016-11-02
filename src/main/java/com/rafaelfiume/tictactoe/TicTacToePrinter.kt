@@ -9,35 +9,31 @@ class TicTacToePrinter(private val snapshot: Game) {
 
     private val boardTemplate = "" +
             " %s | %s | %s " + lineSeparator() +
-            "---+---+---" + lineSeparator() +
+            "---+---+---"    + lineSeparator() +
             " %s | %s | %s " + lineSeparator() +
-            "---+---+---" + lineSeparator() +
+            "---+---+---"    + lineSeparator() +
             " %s | %s | %s "
 
     init {
         this.printerState = printerStateFrom(snapshot)
     }
 
-    fun gameDescription(): String {
-        return printerState.gameDescription()
-    }
+    fun gameDescription() = printerState.gameDescription()
 
     fun board(): String {
         return format(boardTemplate,
-                topLeft(), topCenter(), topRight(),
-                midLeft(), center(), midRight(),
+                topLeft()   , topCenter()   , topRight(),
+                midLeft()   , center()      , midRight(),
                 bottomLeft(), bottomCenter(), bottomRight())
     }
 
-    fun gameStatus(): String {
-        return printerState.gameStatus()
-    }
+    fun gameStatus() = printerState.gameStatus()
 
     private fun printerStateFrom(game: Game): PrinterState {
         if (game.gameHasNotStarted()) return EmptyBoardState()
-        if (game.gameIsOn()) return PlayerTurnState(game.currentPlayer())
-        if (game.hasWinner()) return PlayerWonState(game.winner())
-        if (game.hasDraw()) return DrawState()
+        if (game.gameIsOn())          return PlayerTurnState(game.currentPlayer())
+        if (game.hasWinner())         return PlayerWonState(game.winner())
+        if (game.hasDraw())           return DrawState()
 
         throw IllegalStateException("Unknown game state")
     }
@@ -49,97 +45,48 @@ class TicTacToePrinter(private val snapshot: Game) {
 
     private inner class EmptyBoardState : PrinterState {
 
-        override fun gameDescription(): String {
-            return "Game Board Creation..."
-        }
-
-        override fun gameStatus(): String {
-            return "Board Created." + lineSeparator() +
-                    "The game will start with Player X" + lineSeparator() +
-                    CHOOSE_POSITION
-        }
+        override fun gameDescription() = "Game Board Creation..."
+        override fun gameStatus() =
+             "Board Created." + lineSeparator() +
+             "The game will start with Player X" + lineSeparator() +
+             CHOOSE_POSITION
     }
 
     private inner class PlayerTurnState internal constructor(private val player: Player) : PrinterState {
 
-        override fun gameDescription(): String {
-            return format("Player %s:", player)
-        }
-
-        override fun gameStatus(): String {
-            return CHOOSE_POSITION
-        }
+        override fun gameDescription() = "Player $player:"
+        override fun gameStatus() = CHOOSE_POSITION
     }
 
     private inner class PlayerWonState internal constructor(private val winner: Player) : PrinterState {
 
-        override fun gameDescription(): String {
-            return format("Player %s:", winner)
-        }
-
-        override fun gameStatus(): String {
-            return format("PLAYER %s WON!", winner)
-        }
+        override fun gameDescription() = "Player $winner:"
+        override fun gameStatus() = "PLAYER $winner WON!"
     }
 
     private inner class DrawState : PrinterState {
 
-        override fun gameDescription(): String {
-            return "No More Turns Left :-)"
-        }
-
-        override fun gameStatus(): String {
-            return "GAME ENDS WITH A DRAW!"
-        }
+        override fun gameDescription() = "No More Turns Left :-)"
+        override fun gameStatus() = "GAME ENDS WITH A DRAW!"
     }
 
     //
     // Boring methods
     //
 
-    private fun topLeft(): String {
-        return markAt(snapshot.topLeft())
-    }
+    private fun topLeft()      = markedAt(snapshot.topLeft())
+    private fun topCenter()    = markedAt(snapshot.topCenter())
+    private fun topRight()     = markedAt(snapshot.topRight())
+    private fun midLeft()      = markedAt(snapshot.midLeft())
+    private fun center()       = markedAt(snapshot.center())
+    private fun midRight()     = markedAt(snapshot.midRight())
+    private fun bottomLeft()   = markedAt(snapshot.bottomLeft())
+    private fun bottomCenter() = markedAt(snapshot.bottomCenter())
+    private fun bottomRight()  = markedAt(snapshot.bottomRight())
 
-    private fun topCenter(): String {
-        return markAt(snapshot.topCenter())
-    }
+    private fun markedAt(c: Char) = if (isEmpty(c)) BLANK else Character.toString(c)
 
-    private fun topRight(): String {
-        return markAt(snapshot.topRight())
-    }
-
-    private fun midLeft(): String {
-        return markAt(snapshot.midLeft())
-    }
-
-    private fun center(): String {
-        return markAt(snapshot.center())
-    }
-
-    private fun midRight(): String {
-        return markAt(snapshot.midRight())
-    }
-
-    private fun bottomLeft(): String {
-        return markAt(snapshot.bottomLeft())
-    }
-
-    private fun bottomCenter(): String {
-        return markAt(snapshot.bottomCenter())
-    }
-
-    private fun bottomRight(): String {
-        return markAt(snapshot.bottomRight())
-    }
-
-    private fun markAt(c: Char): String {
-        return if (isEmpty(c)) BLANK else Character.toString(c)
-    }
-
-    private fun isEmpty(c: Char): Boolean {
-        return !Character.isLetter(c)
-    }
+    private fun isEmpty(c: Char) = !Character.isLetter(c)
 
     companion object {
 

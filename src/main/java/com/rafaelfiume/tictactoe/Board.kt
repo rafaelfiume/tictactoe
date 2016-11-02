@@ -32,19 +32,13 @@ class Board private constructor(private val grid: Array<CharArray>) : Game {
         return snapshot
     }
 
+    override fun gameHasNotStarted() = !gameStarted
+
     override fun gameIsOn() = !isGameOver()
 
-    override fun hasWinner(): Boolean {
-        return hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner()
-    }
+    override fun hasWinner() = hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner()
 
-    override fun hasDraw(): Boolean {
-        return noMoreTurns() && !hasWinner()
-    }
-
-    override fun gameHasNotStarted(): Boolean {
-        return !gameStarted
-    }
+    override fun hasDraw() = noMoreTurns() && !hasWinner()
 
     override fun winner(): Player = currentPlayer
 
@@ -56,18 +50,14 @@ class Board private constructor(private val grid: Array<CharArray>) : Game {
     override fun midLeft(): Char = grid[1][0]
     override fun center(): Char = grid[1][1]
     override fun midRight(): Char = grid[1][2]
-
     override fun bottomLeft(): Char = grid[2][0]
-
     override fun bottomCenter(): Char = grid[2][1]
-
     override fun bottomRight(): Char = grid[2][2]
-
     internal fun currentTurn(): Int = currentTurn
 
-    private fun noMoreTurns(): Boolean {
-        return currentTurn == 10
-    }
+    private fun isGameOver() = hasWinner() || hasDraw()
+
+    private fun noMoreTurns() = currentTurn == 10
 
     private fun markPositionIfAvailable(position: BoardPosition): Boolean {
         if (position == UNKNOWN || cellIsMarkedAt(grid[position.row()][position.column()])) {
@@ -82,8 +72,6 @@ class Board private constructor(private val grid: Array<CharArray>) : Game {
         if (isGameOver()) return currentPlayer
         return if (currentPlayer == Player.X) Player.O else Player.X
     }
-
-    private fun isGameOver() = hasWinner() || hasDraw()
 
     private fun hasVerticalWinner(): Boolean {
         for (i in 0..2) {
@@ -117,9 +105,7 @@ class Board private constructor(private val grid: Array<CharArray>) : Game {
                 && center() == bottomLeft()
     }
 
-    private fun cellIsMarkedAt(c: Char?): Boolean {
-        return isLetter(c!!)
-    }
+    private fun cellIsMarkedAt(c: Char?) = isLetter(c!!)
 
     private fun cloneArray(src: Array<CharArray>): Array<CharArray> {
         val length = src.size

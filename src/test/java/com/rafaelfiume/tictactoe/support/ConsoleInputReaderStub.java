@@ -12,7 +12,7 @@ public class ConsoleInputReaderStub implements ConsoleInputReader {
 
     @Override
     public BoardPosition readUserInput() {
-        return BoardPosition.of(positions.poll());
+        return BoardPosition.Companion.of(positions.poll());
     }
 
     public void willReturn(int position) {
