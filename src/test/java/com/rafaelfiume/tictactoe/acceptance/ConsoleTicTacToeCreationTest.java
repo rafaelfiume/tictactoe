@@ -22,7 +22,6 @@ public class ConsoleTicTacToeCreationTest extends AbstractConsoleTicTacToeTest {
         then(theGameStatus(), is("Board Created." + lineSeparator() + "The game will start with Player X"));
     }
 
-
     private TypeSafeMatcher<String> shows(BoardMatcher boardMatcher) {
         return boardMatcher;
     }

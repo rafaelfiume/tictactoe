@@ -1,19 +1,21 @@
 package com.rafaelfiume.tictactoe
 
-import com.rafaelfiume.tictactoe.support.BoardBuilder
-import org.junit.Test
-
 import com.rafaelfiume.tictactoe.BoardPosition.*
+import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aBoard
 import org.hamcrest.Matchers.`is`
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertThat
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
+import org.junit.Test
 
 class BoardSnapshotTest {
 
     @Test
     fun boardReturnsASnapshotOfTheCurrentGame() {
-        val snapshot = BoardBuilder().withPlayerXChoosing(TOP_RIGHT).withPlayerOChoosing(CENTER).withPlayerXChoosing(MID_RIGHT).withPlayerOChoosing(BOTTOM_CENTER).withPlayerXChoosing(BOTTOM_RIGHT).build().snapshot()
+        val snapshot = aBoard()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(CENTER)
+                .withPlayerXChoosing(MID_RIGHT)
+                .withPlayerOChoosing(BOTTOM_CENTER)
+                .withPlayerXChoosing(BOTTOM_RIGHT).build().snapshot()
 
         assertFalse("snapshot should say that game is over", snapshot.gameIsOn())
         assertThat(snapshot.winner(), `is`(Player.X))
@@ -22,7 +24,7 @@ class BoardSnapshotTest {
 
     @Test
     fun changingTheBoardDoesNotReflectsOnPreviousSnapshots() {
-        val original = BoardBuilder().build()
+        val original = aBoard().build()
 
         val snapshot = original.snapshot()
         assertTrue("snapshot should say that game is on", snapshot.gameIsOn())

@@ -13,17 +13,16 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpecRunner.class)
-
+@Notes("Board position is similar to a telephone dial:\n" +
+        "" +
+        " 1 | 2 | 3 \n" +
+        "---+---+---\n" +
+        " 4 | 5 | 6 \n" +
+        "---+---+---\n" +
+        " 7 | 8 | 9 \n"
+)
 public class BoardPositionTest {
 
-    @Notes("Board position is similar to a telephone dial:\n" +
-            "" +
-            " 1 | 2 | 3 \n" +
-            "---+---+---\n" +
-            " 4 | 5 | 6 \n" +
-            "---+---+---\n" +
-            " 7 | 8 | 9 \n"
-    )
     @Table({
             @Row({"1", "TOP_LEFT"}),
             @Row({"2", "TOP_CENTER"}),

@@ -1,6 +1,5 @@
 package com.rafaelfiume.tictactoe
 
-import com.rafaelfiume.tictactoe.support.BoardBuilder
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -9,10 +8,10 @@ import org.junit.Test
 import com.rafaelfiume.tictactoe.BoardPosition.*
 import com.rafaelfiume.tictactoe.BoardTest.DrawMatcher.Companion.hasDraw
 import com.rafaelfiume.tictactoe.BoardTest.PlayerWonMatcher.Companion.hasWinner
-import com.rafaelfiume.tictactoe.support.BoardBuilder.aGameEndingWithNoWinner
-import com.rafaelfiume.tictactoe.support.BoardBuilder.aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom
-import com.rafaelfiume.tictactoe.support.BoardBuilder.emptyBoard
-import java.lang.String.format
+import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aBoard
+import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aGameEndingWithNoWinner
+import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom
+import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.emptyBoard
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.*
 
@@ -20,7 +19,7 @@ class BoardTest {
 
     @Test
     fun gameIsNotOverIfThereIsNoWinnerOrDraw() {
-        val game = BoardBuilder().withPlayerXChoosing(CENTER).build()
+        val game = aBoard().withPlayerXChoosing(CENTER).build()
 
         assertTrue(game.gameIsOn())
     }
@@ -29,14 +28,24 @@ class BoardTest {
 
     @Test
     fun playerWinsWithVerticalLineInTheMiddle() {
-        val game = BoardBuilder().withPlayerXChoosing(CENTER).withPlayerOChoosing(MID_RIGHT).withPlayerXChoosing(TOP_CENTER).withPlayerOChoosing(TOP_RIGHT).withPlayerXChoosing(BOTTOM_CENTER).build()
+        val game = aBoard()
+                .withPlayerXChoosing(CENTER)
+                .withPlayerOChoosing(MID_RIGHT)
+                .withPlayerXChoosing(TOP_CENTER)
+                .withPlayerOChoosing(TOP_RIGHT)
+                .withPlayerXChoosing(BOTTOM_CENTER).build()
 
         assertThat(game, hasWinner(Player.X))
     }
 
     @Test
     fun playerWinsWithVerticalLineInTheRight() {
-        val game = BoardBuilder().withPlayerXChoosing(TOP_RIGHT).withPlayerOChoosing(CENTER).withPlayerXChoosing(MID_RIGHT).withPlayerOChoosing(BOTTOM_CENTER).withPlayerXChoosing(BOTTOM_RIGHT).build()
+        val game = aBoard()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(CENTER)
+                .withPlayerXChoosing(MID_RIGHT)
+                .withPlayerOChoosing(BOTTOM_CENTER)
+                .withPlayerXChoosing(BOTTOM_RIGHT).build()
 
         assertThat(game, hasWinner(Player.X))
     }
@@ -48,7 +57,12 @@ class BoardTest {
 
     @Test
     fun playerWinsWithDiagonalLine() {
-        val game = BoardBuilder().withPlayerXChoosing(TOP_RIGHT).withPlayerOChoosing(TOP_CENTER).withPlayerXChoosing(CENTER).withPlayerOChoosing(BOTTOM_CENTER).withPlayerXChoosing(BOTTOM_LEFT).build()
+        val game = aBoard()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(TOP_CENTER)
+                .withPlayerXChoosing(CENTER)
+                .withPlayerOChoosing(BOTTOM_CENTER)
+                .withPlayerXChoosing(BOTTOM_LEFT).build()
 
         assertThat(game, hasWinner(Player.X))
     }
@@ -100,6 +114,7 @@ class BoardTest {
     //// MATCHER
     //
 
+    @Suppress("unused") // Used via companion method hasWinner()
     internal class PlayerWonMatcher private constructor(
             private val expectedWinner: Player) : GameResultMatcher(true, false) {
 
@@ -123,6 +138,7 @@ class BoardTest {
         }
     }
 
+    @Suppress("unused") // Used via companion method hasDraw()
     internal class DrawMatcher private constructor() : GameResultMatcher(false, true) {
         companion object {
             fun hasDraw(): Matcher<in Board> = DrawMatcher()
