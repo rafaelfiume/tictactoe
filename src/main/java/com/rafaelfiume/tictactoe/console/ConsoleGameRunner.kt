@@ -3,6 +3,7 @@ package com.rafaelfiume.tictactoe.console
 import com.rafaelfiume.tictactoe.Board
 import com.rafaelfiume.tictactoe.Game
 import com.rafaelfiume.tictactoe.GameRenderer
+import com.rafaelfiume.tictactoe.TurnOfTwo
 
 class ConsoleGameRunner(
         private val game: Game,
@@ -29,7 +30,7 @@ class ConsoleGameRunner(
             else
                 BlockingConsoleInputReader()
 
-            ConsoleGameRunner(Board(), input, ConsoleGameRenderer()).start()
+            ConsoleGameRunner(Board(TurnOfTwo()), input, ConsoleGameRenderer()).start() //Board(TurnOfTwo()) is a little weird
         }
 
         private fun isBotModeIn(args: Array<String>): Boolean {

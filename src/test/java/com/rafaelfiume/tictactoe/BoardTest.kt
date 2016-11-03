@@ -1,10 +1,5 @@
 package com.rafaelfiume.tictactoe
 
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
-import org.junit.Test
-
 import com.rafaelfiume.tictactoe.BoardPosition.*
 import com.rafaelfiume.tictactoe.BoardTest.DrawMatcher.Companion.hasDraw
 import com.rafaelfiume.tictactoe.BoardTest.PlayerWonMatcher.Companion.hasWinner
@@ -12,16 +7,36 @@ import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aBoard
 import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aGameEndingWithNoWinner
 import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom
 import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.emptyBoard
+import org.hamcrest.Description
+import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
+import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.*
+import org.junit.Test
+import org.mockito.BDDMockito.*
+import org.mockito.Matchers.anyBoolean
+import org.mockito.Mockito.never
 
 class BoardTest {
 
     @Test
-    fun gameIsNotOverIfThereIsNoWinnerOrDraw() {
-        val game = aBoard().withPlayerXChoosing(CENTER).build()
+    fun gameIsOnIfThereIsNoWinnerOrDraw() {
+        val game = aBoard()
+                .withPlayerXChoosing(TOP_RIGHT).build()
 
         assertTrue(game.gameIsOn())
+    }
+
+    @Test
+    fun gameIsOverIfThereIsNoWinnerOrDraw() {
+        val game = aBoard()
+                .withPlayerXChoosing(TOP_RIGHT)
+                .withPlayerOChoosing(CENTER)
+                .withPlayerXChoosing(MID_RIGHT)
+                .withPlayerOChoosing(BOTTOM_CENTER)
+                .withPlayerXChoosing(BOTTOM_RIGHT).build()
+
+        assertFalse(game.gameIsOn())
     }
 
     // Winning
@@ -74,40 +89,52 @@ class BoardTest {
         assertThat(aGameEndingWithNoWinner(), hasDraw())
     }
 
-    // Validation
+    // Turns
 
     @Test
-    fun doNotChangeTurnWhenPlayerTriesToMarkAnAlreadyOccupiedCellInTheBoard() {// again, this regards turns not board (needs refactor to improve the design)
-        // given
-        val board = emptyBoard()
-        assertThat(board.currentTurn(), `is`(1))
-        assertThat(board.currentPlayer(), `is`(Player.X))
+    fun changesTurnWhenPlayerMarksACellInTheBoard() {
+        val turn = givenATurn()
 
-        board.playerChooses(CENTER)
-        assertThat(board.currentTurn(), `is`(2))
-        assertThat(board.currentPlayer(), `is`(Player.O))
+        emptyBoard(turn).playerChooses(CENTER)
 
-        // when
-        board.playerChooses(CENTER)
-
-        // then
-        assertThat(board.currentPlayer(), `is`(Player.O))
-        assertThat(board.currentTurn(), `is`(2))
+        then(turn).should(times(1)).switchTurnIf(true)
     }
 
     @Test
-    fun doNotChangeTurnWhenPlayerChoosesUnknownCellInTheBoard() {
-        // given
-        val board = emptyBoard()
-        assertThat(board.currentTurn(), `is`(1))
-        assertThat(board.currentPlayer(), `is`(Player.X))
+    fun doesNotChangeTurnWhenPlayerTriesToMarkAnAlreadyOccupiedCellInTheBoard() {// again, this regards turns not board (needs refactor to improve the design)
+        val turn = givenATurn()
+        val board = emptyBoard(turn)
 
-        // when
-        board.playerChooses(UNKNOWN)
+        board.playerChooses(CENTER)
+        board.playerChooses(CENTER)
+        board.playerChooses(CENTER)
 
-        // then
-        assertThat(board.currentTurn(), `is`(1))
-        assertThat(board.currentPlayer(), `is`(Player.X))
+        then(turn).should(times(1)).switchTurnIf(true)
+    }
+
+    @Test
+    fun doesNotChangeTurnWhenPlayerChoosesUnknownCellInTheBoard() {
+        val turn = givenATurn()
+
+        emptyBoard(turn).playerChooses(UNKNOWN)
+
+        then(turn).should(never()).switchTurnIf(anyBoolean())
+    }
+
+    @Test
+    fun returnsCurrentPlayer() {
+        val turn = givenATurn()
+        given(turn.currentPlayer()).willReturn(Player.O)
+
+        val currentPlayer = emptyBoard(turn).currentPlayer()
+
+        assertThat(currentPlayer, `is`(Player.O))
+    }
+
+    private fun givenATurn(): Turn {
+        val turn = mock(Turn::class.java)
+        given(turn.currentPlayer()).willReturn(Player.O)
+        return turn
     }
 
     //

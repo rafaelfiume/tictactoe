@@ -3,30 +3,26 @@ package com.rafaelfiume.tictactoe
 import com.rafaelfiume.tictactoe.BoardPosition.UNKNOWN
 import java.lang.Character.isLetter
 
-class Board private constructor(private val grid: Array<CharArray>) : Game {
+class Board private constructor(
+        private val turn: Turn,
+        private val grid: Array<CharArray>) : Game {
 
-    private var currentPlayer = Player.X // this concerns turns
-    private var currentTurn = 1 // this concerns turns
+    private var gameStarted = false
 
-    private var gameStarted = false // is this concerning the board???
-
-    constructor() : this(Array(3) { CharArray(3) }) // this(new char[3][3]);
+    constructor(turn: Turn) : this(turn, Array(3) { CharArray(3)}) // this(new char[3][3]);
 
     override fun playerChooses(boardPosition: BoardPosition) {
-        val playerTurnEnded = markPositionIfAvailable(boardPosition) // this concerns turns
+        val validMove = markPositionIfAvailable(boardPosition)
 
-        if (playerTurnEnded) {
-            this.currentPlayer = switchPlayerIfGameIsNotOver()
-            this.currentTurn++
+        if (validMove) {
+            turn.switchTurnIf(gameIsOn())
         }
 
         this.gameStarted = true
     }
 
     override fun snapshot(): Game {
-        val snapshot = Board(cloneArray(grid))
-        snapshot.currentPlayer = this.currentPlayer
-        snapshot.currentTurn = this.currentTurn
+        val snapshot = Board(this.turn.snapshot(), cloneArray(grid))
         snapshot.gameStarted = this.gameStarted
 
         return snapshot
@@ -38,11 +34,11 @@ class Board private constructor(private val grid: Array<CharArray>) : Game {
 
     override fun hasWinner() = hasVerticalWinner() || hasHorizontalWinner() || hasDiagonalWinner()
 
-    override fun hasDraw() = noMoreTurns() && !hasWinner()
+    override fun hasDraw() = turn.hasNoMoreTurns() && !hasWinner()
 
-    override fun winner(): Player = currentPlayer
+    override fun winner() = turn.currentPlayer()
 
-    override fun currentPlayer(): Player = currentPlayer
+    override fun currentPlayer() = turn.currentPlayer() // TODO delete this method
 
     override fun topLeft(): Char = grid[0][0]
     override fun topCenter(): Char = grid[0][1]
@@ -53,24 +49,17 @@ class Board private constructor(private val grid: Array<CharArray>) : Game {
     override fun bottomLeft(): Char = grid[2][0]
     override fun bottomCenter(): Char = grid[2][1]
     override fun bottomRight(): Char = grid[2][2]
-    internal fun currentTurn(): Int = currentTurn
+    //internal fun currentTurn(): Int = currentTurn // TODO delete this method
 
     private fun isGameOver() = hasWinner() || hasDraw()
-
-    private fun noMoreTurns() = currentTurn == 10
 
     private fun markPositionIfAvailable(position: BoardPosition): Boolean {
         if (position == UNKNOWN || cellIsMarkedAt(grid[position.row()][position.column()])) {
             return false
         }
 
-        grid[position.row()][position.column()] = currentPlayer.symbol()
+        grid[position.row()][position.column()] = turn.currentPlayer().symbol()
         return true
-    }
-
-    private fun switchPlayerIfGameIsNotOver(): Player {
-        if (isGameOver()) return currentPlayer
-        return if (currentPlayer == Player.X) Player.O else Player.X
     }
 
     private fun hasVerticalWinner(): Boolean {

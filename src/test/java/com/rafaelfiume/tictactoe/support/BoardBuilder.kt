@@ -3,11 +3,13 @@ package com.rafaelfiume.tictactoe.support
 import com.rafaelfiume.tictactoe.Board
 import com.rafaelfiume.tictactoe.BoardPosition
 import com.rafaelfiume.tictactoe.BoardPosition.*
+import com.rafaelfiume.tictactoe.Turn
+import com.rafaelfiume.tictactoe.TurnOfTwo
 
 @Suppress("unused") // Used via companion method aBoard()
-class BoardBuilder private constructor() {
+class BoardBuilder private constructor(turn: Turn) {
 
-    private val board = Board()
+    private val board = Board(turn)
 
     fun withPlayerXChoosing(boardPosition: BoardPosition): BoardBuilder {
         board.playerChooses(boardPosition)
@@ -28,9 +30,9 @@ class BoardBuilder private constructor() {
 
     companion object {
 
-        fun aBoard() = BoardBuilder()
+        fun aBoard(turn: Turn = TurnOfTwo()) = BoardBuilder(turn)
 
-        fun emptyBoard() = aBoard().build()
+        fun emptyBoard(turn: Turn = TurnOfTwo()) = aBoard(turn).build()
 
         fun aBoardWithPlayerXWinningWithVerticalLineOnTheLeft(): Board {
             return aBoard()
@@ -65,4 +67,5 @@ class BoardBuilder private constructor() {
                     .withPlayerXChoosing(MID_RIGHT).build()
         }
     }
+
 }
