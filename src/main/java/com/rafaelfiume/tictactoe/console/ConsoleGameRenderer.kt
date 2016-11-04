@@ -2,16 +2,17 @@ package com.rafaelfiume.tictactoe.console
 
 import com.rafaelfiume.tictactoe.Game
 import com.rafaelfiume.tictactoe.GameRenderer
-import com.rafaelfiume.tictactoe.TttPrinter
+import com.rafaelfiume.tictactoe.console.ConsoleGamePrinterState.printerFor
 
 class ConsoleGameRenderer : GameRenderer {
 
     override fun show(game: Game): String {
-        val print = TttPrinter(game)
+        val printerState = printerFor(game)
+
         val ui = "${System.lineSeparator()}" +
-                "${print.gameDescription()}" + "${System.lineSeparator()}${System.lineSeparator()}" +
-                "${print.board()}" + "${System.lineSeparator()}${System.lineSeparator()}" +
-                "${print.gameStatus()}"
+                "${printerState.gameDescription()}" + "${System.lineSeparator()}${System.lineSeparator()}" +
+                "${printerState.board()}" + "${System.lineSeparator()}${System.lineSeparator()}" +
+                "${printerState.gameStatus()}"
 
         print(ui)
         return ui

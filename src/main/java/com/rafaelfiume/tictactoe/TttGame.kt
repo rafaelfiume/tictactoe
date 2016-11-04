@@ -9,7 +9,6 @@ class TttGame private constructor(
 
     override fun playerChooses(boardPosition: BoardPosition) {
         val validMove = board.markPositionIfAvailable(boardPosition, turn.currentPlayer())
-
         if (validMove) {
             turn.switchTurnIf(gameIsOn())
         }

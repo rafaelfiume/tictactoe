@@ -1,8 +1,9 @@
-package com.rafaelfiume.tictactoe
+package com.rafaelfiume.tictactoe.console
 
 import com.rafaelfiume.tictactoe.BoardPosition.TOP_RIGHT
 import com.rafaelfiume.tictactoe.BoardPosition.UNKNOWN
 import com.rafaelfiume.tictactoe.TttGame.Factory.newGame
+import com.rafaelfiume.tictactoe.console.ConsoleGamePrinterState.printerFor
 import com.rafaelfiume.tictactoe.matchers.BoardMatcher.Companion.showsABoardLike
 import com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.Companion.anEmptyBoard
 import com.rafaelfiume.tictactoe.support.GameBuilder.Factory.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft
@@ -13,13 +14,13 @@ import org.junit.Assert.assertThat
 import org.junit.Test
 import java.lang.System.lineSeparator
 
-class TttPrinterTest {
+class ConsoleGamePrinterStateTest {
 
     @Test
     fun printEmptyBoardWhenThereAreNoMovesYet() {
         val emptyGame = newGame()
 
-        val print = TttPrinter(emptyGame)
+        val print = printerFor(emptyGame)
 
         assertThat(print.gameDescription(), `is`("Game Board Creation..."))
         assertThat(print.board(), `is`(anEmptyBoard()))
@@ -30,7 +31,7 @@ class TttPrinterTest {
     fun printPlayerXWinsWhenHeGetsThreeInAVerticalRow() {
         val playerXWon = aBoardWithPlayerXWinningWithVerticalLineOnTheLeft()
 
-        val print = TttPrinter(playerXWon)
+        val print = printerFor(playerXWon)
 
         assertThat(print.gameDescription(), `is`("Player X:"))
         assertThat(print.board(), showsABoardLike(
@@ -46,7 +47,7 @@ class TttPrinterTest {
     fun printPlayerOWinsWhenSheStrikesHorizontalVictory() {
         val playerOWon = aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom()
 
-        val print = TttPrinter(playerOWon)
+        val print = printerFor(playerOWon)
 
         assertThat(print.gameDescription(), `is`("Player O:"))
         assertThat(print.board(), showsABoardLike(
@@ -62,7 +63,7 @@ class TttPrinterTest {
     fun printGameEndsWithDrawWhenThereAreNoMoreTurnsAndNoWinners() {
         val draw = aGameEndingWithNoWinner()
 
-        val print = TttPrinter(draw)
+        val print = printerFor(draw)
 
         assertThat(print.gameDescription(), `is`("No More Turns Left :-)"))
         assertThat(print.board(), showsABoardLike(
@@ -80,7 +81,7 @@ class TttPrinterTest {
         boardWithDisputedCell.playerChooses(TOP_RIGHT)
         boardWithDisputedCell.playerChooses(TOP_RIGHT)
 
-        val print = TttPrinter(boardWithDisputedCell)
+        val print = printerFor(boardWithDisputedCell)
 
         assertThat(print.gameDescription(), `is`("Player O:"))
         assertThat(print.board(), showsABoardLike(
@@ -97,7 +98,7 @@ class TttPrinterTest {
         val boardWithDisputedCell = newGame()
         boardWithDisputedCell.playerChooses(UNKNOWN)
 
-        val print = TttPrinter(boardWithDisputedCell)
+        val print = printerFor(boardWithDisputedCell)
 
         assertThat(print.gameDescription(), `is`("Player X:"))
         assertThat(print.board(), showsABoardLike(

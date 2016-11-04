@@ -3,8 +3,8 @@ package com.rafaelfiume.tictactoe
 import com.rafaelfiume.tictactoe.BoardPosition.TOP_LEFT
 import com.rafaelfiume.tictactoe.BoardPosition.UNKNOWN
 import com.rafaelfiume.tictactoe.support.TestingBoards.whenPlayerWinsWithA_DiagonalRow_InThe
-import com.rafaelfiume.tictactoe.support.TestingBoards.whenPlayerWinsWithAn_HorizontalRow_InThe
 import com.rafaelfiume.tictactoe.support.TestingBoards.whenPlayerWinsWithA_VerticalRow_InThe
+import com.rafaelfiume.tictactoe.support.TestingBoards.whenPlayerWinsWithAn_HorizontalRow_InThe
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Assert.assertTrue
