@@ -13,7 +13,7 @@ open class BoardMatcher(private val expectedBoard: String) : TypeSafeMatcher<Str
     }
 
     override fun describeMismatchSafely(actual: String, mismatchDescription: Description) {
-        mismatchDescription.appendText("game board was:${lineSeparator()}$actual")
+        mismatchDescription.appendText("board was:${lineSeparator()}$actual")
     }
 
     companion object {

@@ -11,8 +11,7 @@ import com.googlecode.yatspec.rendering.html.index.HtmlIndexRenderer;
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
-import com.rafaelfiume.tictactoe.Board;
-import com.rafaelfiume.tictactoe.TurnOfTwo;
+import com.rafaelfiume.tictactoe.TttGame;
 import com.rafaelfiume.tictactoe.console.BotConsoleInputReader;
 import com.rafaelfiume.tictactoe.console.ConsoleGameRunner;
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer;
@@ -32,7 +31,7 @@ public class ConsoleBotModeTicTacToeTest extends TestState implements WithCustom
     private final RecordConsoleOutputRenderer consoleRenderer = new RecordConsoleOutputRenderer();
 
     private final ConsoleGameRunner gameRunner = new ConsoleGameRunner(
-            new Board(new TurnOfTwo()),
+            TttGame.Factory.newGame(),
             new BotConsoleInputReader(TURN_DURATION_IN_SECONDS),
             consoleRenderer
     );

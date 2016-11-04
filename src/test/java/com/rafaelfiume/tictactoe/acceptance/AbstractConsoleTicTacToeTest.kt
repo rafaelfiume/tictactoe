@@ -12,8 +12,7 @@ import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest
 import com.googlecode.yatspec.state.givenwhenthen.GivensBuilder
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor
 import com.googlecode.yatspec.state.givenwhenthen.TestState
-import com.rafaelfiume.tictactoe.Board
-import com.rafaelfiume.tictactoe.TurnOfTwo
+import com.rafaelfiume.tictactoe.TttGame.Factory.newGame
 import com.rafaelfiume.tictactoe.console.ConsoleGameRunner
 import com.rafaelfiume.tictactoe.support.ConsoleInputReaderStub
 import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer
@@ -27,7 +26,7 @@ abstract class AbstractConsoleTicTacToeTest : TestState(), WithCustomResultListe
 
     private val consoleInputReader = ConsoleInputReaderStub()
     private val consoleRenderer = RecordConsoleOutputRenderer()
-    private val gameRunner = ConsoleGameRunner(Board(TurnOfTwo()), consoleInputReader, consoleRenderer)
+    private val gameRunner = ConsoleGameRunner(newGame(), consoleInputReader, consoleRenderer)
 
     @Throws(Exception::class)
     override fun getResultListeners(): Iterable<SpecResultListener> {

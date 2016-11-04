@@ -1,25 +1,25 @@
 package com.rafaelfiume.tictactoe
 
 import com.rafaelfiume.tictactoe.BoardPosition.TOP_RIGHT
+import com.rafaelfiume.tictactoe.BoardPosition.UNKNOWN
+import com.rafaelfiume.tictactoe.TttGame.Factory.newGame
 import com.rafaelfiume.tictactoe.matchers.BoardMatcher.Companion.showsABoardLike
 import com.rafaelfiume.tictactoe.matchers.EmptyBoardMatcher.Companion.anEmptyBoard
-import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aBoard
-import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft
-import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aGameEndingWithNoWinner
-import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom
-import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.emptyBoard
+import com.rafaelfiume.tictactoe.support.GameBuilder.Factory.aBoardWithPlayerXWinningWithVerticalLineOnTheLeft
+import com.rafaelfiume.tictactoe.support.GameBuilder.Factory.aGameEndingWithNoWinner
+import com.rafaelfiume.tictactoe.support.GameBuilder.Factory.aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
 import java.lang.System.lineSeparator
 
-class TicTacToePrinterTest {
+class TttPrinterTest {
 
     @Test
     fun printEmptyBoardWhenThereAreNoMovesYet() {
-        val emptyGame = emptyBoard()
+        val emptyGame = newGame()
 
-        val print = TicTacToePrinter(emptyGame)
+        val print = TttPrinter(emptyGame)
 
         assertThat(print.gameDescription(), `is`("Game Board Creation..."))
         assertThat(print.board(), `is`(anEmptyBoard()))
@@ -30,7 +30,7 @@ class TicTacToePrinterTest {
     fun printPlayerXWinsWhenHeGetsThreeInAVerticalRow() {
         val playerXWon = aBoardWithPlayerXWinningWithVerticalLineOnTheLeft()
 
-        val print = TicTacToePrinter(playerXWon)
+        val print = TttPrinter(playerXWon)
 
         assertThat(print.gameDescription(), `is`("Player X:"))
         assertThat(print.board(), showsABoardLike(
@@ -46,7 +46,7 @@ class TicTacToePrinterTest {
     fun printPlayerOWinsWhenSheStrikesHorizontalVictory() {
         val playerOWon = aGameWithPlayer_O_WinningWithAnHorizontalLineOnTheBottom()
 
-        val print = TicTacToePrinter(playerOWon)
+        val print = TttPrinter(playerOWon)
 
         assertThat(print.gameDescription(), `is`("Player O:"))
         assertThat(print.board(), showsABoardLike(
@@ -62,7 +62,7 @@ class TicTacToePrinterTest {
     fun printGameEndsWithDrawWhenThereAreNoMoreTurnsAndNoWinners() {
         val draw = aGameEndingWithNoWinner()
 
-        val print = TicTacToePrinter(draw)
+        val print = TttPrinter(draw)
 
         assertThat(print.gameDescription(), `is`("No More Turns Left :-)"))
         assertThat(print.board(), showsABoardLike(
@@ -76,9 +76,11 @@ class TicTacToePrinterTest {
 
     @Test
     fun printPlayerHasToChooseAnotherCellInTheBoardWhenSheTriesToMarkAnOccupiedSpaceInTheBoard() {
-        val boardWithDisputedCell = aBoard().withPlayerXChoosing(TOP_RIGHT).withPlayerOChoosing(TOP_RIGHT).build()
+        val boardWithDisputedCell = newGame()
+        boardWithDisputedCell.playerChooses(TOP_RIGHT)
+        boardWithDisputedCell.playerChooses(TOP_RIGHT)
 
-        val print = TicTacToePrinter(boardWithDisputedCell)
+        val print = TttPrinter(boardWithDisputedCell)
 
         assertThat(print.gameDescription(), `is`("Player O:"))
         assertThat(print.board(), showsABoardLike(
@@ -92,9 +94,10 @@ class TicTacToePrinterTest {
 
     @Test
     fun printPlayerHasToChooseAnotherCellInTheBoardWhenHePicksUpAnUnknownOne() {
-        val board = aBoard().withPlayerXChoosingAnUnknownCell().build().snapshot()
+        val boardWithDisputedCell = newGame()
+        boardWithDisputedCell.playerChooses(UNKNOWN)
 
-        val print = TicTacToePrinter(board)
+        val print = TttPrinter(boardWithDisputedCell)
 
         assertThat(print.gameDescription(), `is`("Player X:"))
         assertThat(print.board(), showsABoardLike(

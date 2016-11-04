@@ -1,21 +1,23 @@
 package com.rafaelfiume.tictactoe
 
 import com.rafaelfiume.tictactoe.BoardPosition.*
-import com.rafaelfiume.tictactoe.support.BoardBuilder.Companion.aBoard
+import com.rafaelfiume.tictactoe.support.GameBuilder.Factory.aGame
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.*
 import org.junit.Test
 
-class BoardSnapshotTest {
+class SnapshotGameTest {
 
     @Test
-    fun boardReturnsASnapshotOfTheCurrentGame() {
-        val snapshot = aBoard()
+    fun returnsABoardSnapshot() {
+        val game = aGame()
                 .withPlayerXChoosing(TOP_RIGHT)
                 .withPlayerOChoosing(CENTER)
                 .withPlayerXChoosing(MID_RIGHT)
                 .withPlayerOChoosing(BOTTOM_CENTER)
-                .withPlayerXChoosing(BOTTOM_RIGHT).build().snapshot()
+                .withPlayerXChoosing(BOTTOM_RIGHT).build()
+
+        val snapshot = game.snapshot()
 
         assertFalse("snapshot should say that game is over", snapshot.gameIsOn())
         assertThat(snapshot.winner(), `is`(Player.X))
@@ -24,13 +26,13 @@ class BoardSnapshotTest {
 
     @Test
     fun changingTheBoardDoesNotReflectsOnPreviousSnapshots() {
-        val original = aBoard().build()
+        val game = aGame().build()
+        val firstSnapshot = game.snapshot()
+        assertTrue("game should say that game is on", firstSnapshot.gameHasNotStarted())
 
-        val snapshot = original.snapshot()
-        assertTrue("snapshot should say that game is on", snapshot.gameIsOn())
+        game.playerChooses(BOTTOM_RIGHT)
 
-        original.playerChooses(BOTTOM_RIGHT)
-        assertTrue("original should not change state of a snapshot", snapshot.gameHasNotStarted())
+        assertTrue("game should not change state of a previous snapshot", firstSnapshot.gameHasNotStarted())
+        assertFalse(game.snapshot().gameHasNotStarted())
     }
-
 }

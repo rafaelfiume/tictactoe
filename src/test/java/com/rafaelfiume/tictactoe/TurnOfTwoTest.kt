@@ -1,5 +1,6 @@
 package com.rafaelfiume.tictactoe
 
+import com.rafaelfiume.tictactoe.support.TestingTurns.afterMore
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -15,7 +16,6 @@ class TurnOfTwoTest {
 
     @Test
     fun changesPlayerWhenSwitchingTurnAndGameIsStillOn() {
-        // given
         val turns = TurnOfTwo()
         val gameIsOn = true
 
@@ -35,13 +35,10 @@ class TurnOfTwoTest {
 
     @Test
     fun doesNotchangePlayerWhenSwitchingTurnAndGameIsOver() {
-        // given
         val turns = TurnOfTwo()
 
-        // when
         turns.switchTurnIf(gameOver())
 
-        // then
         assertThat(turns.currentPlayer(), `is`(Player.X))
     }
 
@@ -55,12 +52,6 @@ class TurnOfTwoTest {
 
         afterMore(1, turns)
         assertTrue(turns.hasNoMoreTurns())
-    }
-
-    private fun afterMore(numberOfTurns: Int, turn: TurnOfTwo) {
-        for (number in 1..numberOfTurns) {
-            turn.switchTurnIf(true)
-        }
     }
 
     private fun gameOver() = false

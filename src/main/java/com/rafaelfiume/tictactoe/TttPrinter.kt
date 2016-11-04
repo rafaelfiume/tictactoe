@@ -3,8 +3,9 @@ package com.rafaelfiume.tictactoe
 import java.lang.String.format
 import java.lang.System.lineSeparator
 
-class TicTacToePrinter(private val snapshot: Game) {
+class TttPrinter(game: Game) {
 
+    private val board: Board
     private val printerState: PrinterState
 
     private val boardTemplate = "" +
@@ -15,7 +16,8 @@ class TicTacToePrinter(private val snapshot: Game) {
             " %s | %s | %s "
 
     init {
-        this.printerState = printerStateFrom(snapshot)
+        this.board = game.board()
+        this.printerState = printerStateFrom(game)
     }
 
     fun gameDescription() = printerState.gameDescription()
@@ -74,15 +76,15 @@ class TicTacToePrinter(private val snapshot: Game) {
     // Boring methods
     //
 
-    private fun topLeft()      = markedAt(snapshot.topLeft())
-    private fun topCenter()    = markedAt(snapshot.topCenter())
-    private fun topRight()     = markedAt(snapshot.topRight())
-    private fun midLeft()      = markedAt(snapshot.midLeft())
-    private fun center()       = markedAt(snapshot.center())
-    private fun midRight()     = markedAt(snapshot.midRight())
-    private fun bottomLeft()   = markedAt(snapshot.bottomLeft())
-    private fun bottomCenter() = markedAt(snapshot.bottomCenter())
-    private fun bottomRight()  = markedAt(snapshot.bottomRight())
+    private fun topLeft()      = markedAt(board.topLeft())
+    private fun topCenter()    = markedAt(board.topCenter())
+    private fun topRight()     = markedAt(board.topRight())
+    private fun midLeft()      = markedAt(board.midLeft())
+    private fun center()       = markedAt(board.center())
+    private fun midRight()     = markedAt(board.midRight())
+    private fun bottomLeft()   = markedAt(board.bottomLeft())
+    private fun bottomCenter() = markedAt(board.bottomCenter())
+    private fun bottomRight()  = markedAt(board.bottomRight())
 
     private fun markedAt(c: Char) = if (isEmpty(c)) BLANK else Character.toString(c)
 
