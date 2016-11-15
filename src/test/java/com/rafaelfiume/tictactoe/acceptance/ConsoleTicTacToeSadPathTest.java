@@ -25,7 +25,7 @@ public class ConsoleTicTacToeSadPathTest extends AbstractConsoleTicTacToeTest {
                         "   |   |   " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         "   |   |   "));
-        then(theGameStatus(), is("Choose Position:"));
+        then(theGameStatus(), is("Choose position:"));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class ConsoleTicTacToeSadPathTest extends AbstractConsoleTicTacToeTest {
                         "   |   |   " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         "   |   |   "));
-        then(theGameStatus(), is("Choose Position:"));
+        then(theGameStatus(), is("Choose position:"));
     }
 
 }

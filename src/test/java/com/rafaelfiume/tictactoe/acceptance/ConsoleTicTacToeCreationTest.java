@@ -19,7 +19,7 @@ public class ConsoleTicTacToeCreationTest extends AbstractConsoleTicTacToeTest {
 
         then(theGameDescription(), is("Game Board Creation..."));
         then(theGame(), shows(anEmptyBoard()));
-        then(theGameStatus(), is("Board Created." + lineSeparator() + "The game will start with Player X"));
+        then(theGameStatus(), is("The game will start with Player X" + lineSeparator() + "Choose position:"));
     }
 
     private TypeSafeMatcher<String> shows(BoardMatcher boardMatcher) {

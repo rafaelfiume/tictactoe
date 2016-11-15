@@ -27,7 +27,7 @@ object ConsoleGamePrinterState {
                 " %s | %s | %s "
 
         private val BLANK = " "
-        protected val CHOOSE_POSITION = "Choose Position:"
+        protected val CHOOSE_POSITION = "Choose position:"
 
         override fun board(): String {
             return format(boardTemplate,
@@ -55,9 +55,7 @@ object ConsoleGamePrinterState {
 
         override fun gameDescription() = "Game Board Creation..."
         override fun gameStatus() =
-             "Board Created." + lineSeparator() +
-             "The game will start with Player X" + lineSeparator() +
-             CHOOSE_POSITION
+             "The game will start with Player X" + lineSeparator() + CHOOSE_POSITION
     }
 
     private class PlayerTurnState internal constructor(

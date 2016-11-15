@@ -31,7 +31,7 @@ class TttBoard private constructor(private val grid: Array<CharArray>) : Board {
     override fun snapshot() = TttBoard(cloneArray(grid))
 
     private fun hasVerticalWinner(): Boolean {
-        for (i in 0..2) {
+        (0..2).forEach { i ->
             if (cellIsMarkedAt(grid[0][i])
                     && grid[0][i] == grid[1][i]
                     && grid[1][i] == grid[2][i]) {
@@ -42,7 +42,7 @@ class TttBoard private constructor(private val grid: Array<CharArray>) : Board {
     }
 
     private fun hasHorizontalWinner(): Boolean {
-        for (i in 0..2) {
+        (0..2).forEach { i ->
             if (cellIsMarkedAt(grid[i][0])
                     && grid[i][0] == grid[i][1]
                     && grid[i][1] == grid[i][2]) {

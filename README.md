@@ -1,4 +1,4 @@
-# Tic-Tac-Toe [![Build Status](https://travis-ci.org/rafaelfiume/tictactoe.svg?branch=master)](https://travis-ci.org/rafaelfiume/tictactoe) [![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/tictactoe/blob/master/LICENSE)
+# Tic-Tac-Toe [![Build Status](https://travis-ci.org/rafaelfiume/tictactoe.svg?branch=master)](https://travis-ci.org/rafaelfiume/tictactoe) [![Apache 2.0 License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rafaelfiume/tictactoe/blob/master/LICENSE)
 
 A simple Tic-Tac-Toe console game implementation demonstrating design and TDD techniques.
 

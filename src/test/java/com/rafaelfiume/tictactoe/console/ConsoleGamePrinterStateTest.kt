@@ -24,7 +24,7 @@ class ConsoleGamePrinterStateTest {
 
         assertThat(print.gameDescription(), `is`("Game Board Creation..."))
         assertThat(print.board(), `is`(anEmptyBoard()))
-        assertThat(print.gameStatus(), `is`("Board Created." + lineSeparator() + "The game will start with Player X" + lineSeparator() + "Choose Position:"))
+        assertThat(print.gameStatus(), `is`("The game will start with Player X" + lineSeparator() + "Choose position:"))
     }
 
     @Test
@@ -90,7 +90,7 @@ class ConsoleGamePrinterStateTest {
                         "   |   |   " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         "   |   |   "))
-        assertThat(print.gameStatus(), `is`("Choose Position:"))
+        assertThat(print.gameStatus(), `is`("Choose position:"))
     }
 
     @Test
@@ -107,6 +107,6 @@ class ConsoleGamePrinterStateTest {
                         "   |   |   " + lineSeparator() +
                         "---+---+---" + lineSeparator() +
                         "   |   |   "))
-        assertThat(print.gameStatus(), `is`("Choose Position:"))
+        assertThat(print.gameStatus(), `is`("Choose position:"))
     }
 }
