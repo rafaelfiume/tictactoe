@@ -1,6 +1,6 @@
-172.17.15.110	testing-worker-linux-docker-944d7a6c-3453-linux-2.prod.travis-ci.org testing-worker-linux-docker-944d7a6c-3453-linux-2
 ::1	localhost ip6-localhost ip6-loopback
 fe00::0	ip6-localnet
 ff00::0	ip6-mcastprefix
 ff02::1	ip6-allnodes
 ff02::2	ip6-allrouters
+172.17.0.10	testing-docker-12464668-8fc0-48a5-9c66-3789e8ee2c5e
