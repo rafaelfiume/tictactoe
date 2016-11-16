@@ -32,7 +32,7 @@ class ConsoleGameRunner(
         }
 
         private fun isBotModeIn(args: Array<String>): Boolean {
-            return args.size >= 1 && BOT_MODE == args[0]
+            return args.isNotEmpty() && BOT_MODE == args[0]
         }
     }
 

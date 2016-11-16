@@ -62,7 +62,7 @@ class TttBoard private constructor(private val grid: Array<CharArray>) : Board {
                 && center() == bottomLeft()
     }
 
-    private fun cellIsMarkedAt(c: Char?) = isLetter(c!!)
+    private fun cellIsMarkedAt(c: Char) = isLetter(c)
 
     private fun cloneArray(src: Array<CharArray>): Array<CharArray> {
         val length = src.size

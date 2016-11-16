@@ -7,7 +7,6 @@ import com.googlecode.yatspec.junit.Table;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.rafaelfiume.tictactoe.BoardPosition.UNKNOWN;
 import static java.lang.Integer.parseInt;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -32,16 +31,12 @@ public class BoardPositionTest {
             @Row({"6", "MID_RIGHT"}),
             @Row({"7", "BOTTOM_LEFT"}),
             @Row({"8", "BOTTOM_CENTER"}),
-            @Row({"9", "BOTTOM_RIGHT"})
+            @Row({"9", "BOTTOM_RIGHT"}),
+            @Row({"11", "UNKNOWN"})
     })
     @Test
-    public void mapUserInputToCorrectBoardPosition(String number, String boardPosition) {
-        assertThat(BoardPosition.Companion.of(number(number)), is(the(boardPosition)));
-    }
-
-    @Test
-    public void throwsExceptionWhenPlayersInputIsUnknown() {
-        assertThat(BoardPosition.Companion.of(11), is(UNKNOWN));
+    public void mapsUserInputToCorrectBoardPosition(String number, String boardPosition) {
+        assertThat(BoardPosition.Factory.of(number(number)), is(the(boardPosition)));
     }
 
     private BoardPosition the(String boardPosition) {

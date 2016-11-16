@@ -1,6 +1,6 @@
 package com.rafaelfiume.tictactoe
 
-enum class BoardPosition private constructor(private val input: Int, private val row: Int, private val column: Int) {
+enum class BoardPosition constructor(private val input: Int, private val row: Int, private val column: Int) {
 
     TOP_LEFT(1, 0, 0)   , TOP_CENTER(2, 0, 1)   , TOP_RIGHT(3, 0, 2),
     MID_LEFT(4, 1, 0)   , CENTER(5, 1, 1)       , MID_RIGHT(6, 1, 2),
@@ -12,13 +12,10 @@ enum class BoardPosition private constructor(private val input: Int, private val
 
     fun column(): Int = column
 
-    companion object {
+    companion object Factory {
 
         fun of(number: Int): BoardPosition {
-            for (p in BoardPosition.values()) {
-                if (p.input == number) return p
-            }
-            return UNKNOWN
+            return BoardPosition.values().firstOrNull { it.input == number } ?: UNKNOWN
         }
     }
 

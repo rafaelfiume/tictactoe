@@ -34,7 +34,7 @@ class TurnOfTwoTest {
     }
 
     @Test
-    fun doesNotchangePlayerWhenSwitchingTurnAndGameIsOver() {
+    fun doesNotChangePlayerWhenSwitchingTurnAndGameIsOver() {
         val turns = TurnOfTwo()
 
         turns.switchTurnIf(gameOver())

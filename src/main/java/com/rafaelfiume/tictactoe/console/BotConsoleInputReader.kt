@@ -4,6 +4,7 @@ import com.rafaelfiume.tictactoe.BoardPosition
 
 import java.util.ArrayList
 import java.util.Collections
+import java.util.Collections.shuffle
 
 class BotConsoleInputReader(turnDurationInSeconds: Int) : ConsoleInputReader {
 
@@ -34,10 +35,8 @@ class BotConsoleInputReader(turnDurationInSeconds: Int) : ConsoleInputReader {
         private var cursor = 0
 
         init {
-            for (i in 1..MAX_POSITION) {
-                availablePositions.add(i)
-            }
-            Collections.shuffle(availablePositions)
+            availablePositions += 1..MAX_POSITION
+            shuffle(availablePositions)
         }
 
         /*
@@ -48,7 +47,7 @@ class BotConsoleInputReader(turnDurationInSeconds: Int) : ConsoleInputReader {
         }
 
         private fun index(): Int {
-            println("Current cursor: $cursor; current value: ${availablePositions[cursor]}")
+            println(" ${availablePositions[cursor]}")
             return cursor++
         }
 

@@ -19,11 +19,6 @@ import com.rafaelfiume.tictactoe.support.RecordConsoleOutputRenderer
 
 abstract class AbstractConsoleTicTacToeTest : TestState(), WithCustomResultListeners {
 
-    // TODO RF 26/11/15 Proposal to extract Turn from Board...
-    //private final Board board = new Board();
-    //private final Turn turn = mock(turn);
-    //private final TicTacToe ticTacToe = new TicTacToe(board, turn);
-
     private val consoleInputReader = ConsoleInputReaderStub()
     private val consoleRenderer = RecordConsoleOutputRenderer()
     private val gameRunner = ConsoleGameRunner(newGame(), consoleInputReader, consoleRenderer)
@@ -85,8 +80,7 @@ abstract class AbstractConsoleTicTacToeTest : TestState(), WithCustomResultListe
             gameRunner.start()
         } catch (e: NullPointerException) {
             // Test and app work all right, but...
-            // This is a massive hack to deal with premature termination: game is not over an ConsoleInputReader#readUserInput will blow up
-            // TODO RF 25/11/2015 Improve the design to fix it
+            // TODO RF 25/11/2015 This is a massive hack to deal with premature termination: game is not over an ConsoleInputReader#readUserInput will blow up
         }
     }
 
