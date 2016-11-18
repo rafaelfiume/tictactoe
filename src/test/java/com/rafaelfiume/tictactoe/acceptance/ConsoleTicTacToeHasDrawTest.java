@@ -12,17 +12,17 @@ import static org.hamcrest.Matchers.is;
 public class ConsoleTicTacToeHasDrawTest extends AbstractConsoleTicTacToeTest {
 
     @Test
-    public void gameEndsInADrawWhenPlayersCantGetThreeInARowBeforeTurnsEnd() throws Exception {
-        given(player_X_marksTopLeftPosition());
-        and(player_O_marksCenterPosition());
-        and(player_X_marksMidLeftPosition());
-        and(player_O_marksDownLeftPosition());
-        and(player_X_marksTopRightPosition());
-        and(player_O_marksDownRightPosition());
-        and(player_X_marksDownCenterPosition());
-        and(player_O_marksTopCenterPosition());
+    public void gameEndsInADrawWhenPlayersCantGetThreeInARow() throws Exception {
+        given(player_X_types_1());
+        and(player_O_types_5());
+        and(player_X_types_4());
+        and(player_O_types_7());
+        and(player_X_types_3());
+        and(player_O_types_9());
+        and(player_X_types_8());
+        and(player_O_types_2());
 
-        when(player_X_marksMidRightPosition());
+        when(player_X_types_6());
         andAppIsUpAndRunning();
 
         then(theGameDescription(), is("No More Turns Left :-)"));
