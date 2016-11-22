@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 public class ConsoleTicTacToeSadPathTest extends AbstractConsoleTicTacToeTest {
 
     @Test
-    public void tellPlayerToChooseAnEmptyCellInTheBoardWhenShePicksUpOneThatHasBeenAlreadyChosen() throws Exception {
+    public void playerHasToSelectAFreePositionInTheBoard() throws Exception {
         given(player_X_types_1());
 
         when(player_O_types_1());
@@ -29,7 +29,7 @@ public class ConsoleTicTacToeSadPathTest extends AbstractConsoleTicTacToeTest {
     }
 
     @Test
-    public void tellPlayerToChooseAValidCellInTheBoardWhenHeEntersAnUnknownPosition() throws Exception {
+    public void playerHasToSelectAValidPositionInTheBoard() throws Exception {
         given(player_X_types_1());
 
         when(player_O_typesInvalidStuff());

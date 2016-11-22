@@ -24,7 +24,7 @@ class TttBoardTest {
     }
 
     @Test
-    fun doesNotMarkPositionWhenPlayerAnAlreadyMarkedOne() {
+    fun doesNotMarkPositionWhenPlayerChoosesAnAlreadyMarkedOne() {
         val board = givenABoard()
         board.markPositionIfAvailable(TOP_LEFT, Player.O)
 

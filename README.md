@@ -2,6 +2,8 @@
 
 A simple Tic-Tac-Toe console game implementation demonstrating design and TDD techniques.
 
+* An Erlang version is available [here](https://github.com/rafaelfiume/tictactoerl).
+
 The project specification is available [here](http://rafaelfiume.github.io/tictactoe), generated from the source code of the test classes
 in the [acceptance](https://github.com/rafaelfiume/tictactoe/tree/master/src/test/java/com/rafaelfiume/tictactoe/console/acceptance) package, and automatically updated when pushing code into master.
 
