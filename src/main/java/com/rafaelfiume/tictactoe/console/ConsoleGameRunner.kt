@@ -23,18 +23,17 @@ class ConsoleGameRunner(
         private val TURN_DURATION_WHEN_IN_BOT_MODE_IN_SECONDS = 2
 
         @JvmStatic fun main(args: Array<String>) {
-            val input = if (isBotModeIn(args))
+            val inputReader = if (isBotModeIn(args))
                 BotConsoleInputReader(TURN_DURATION_WHEN_IN_BOT_MODE_IN_SECONDS)
             else
                 BlockingConsoleInputReader()
 
-            ConsoleGameRunner(newGame(), input, ConsoleGameRenderer()).start()
+            ConsoleGameRunner(newGame(), inputReader, ConsoleGameRenderer()).start()
         }
 
         private fun isBotModeIn(args: Array<String>): Boolean {
             return args.isNotEmpty() && BOT_MODE == args[0]
         }
     }
-
 
 }
