@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
-public class ConsoleBotModeTicTacToeTest extends TestState implements WithCustomResultListeners {
+public class ConsoleTicTacToeInBotModeTest extends TestState implements WithCustomResultListeners {
 
     private static final int TURN_DURATION_IN_SECONDS = 0;
 

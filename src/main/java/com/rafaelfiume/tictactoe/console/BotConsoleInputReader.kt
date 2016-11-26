@@ -16,11 +16,11 @@ class BotConsoleInputReader(turnDurationInSeconds: Int) : ConsoleInputReader {
     }
 
     override fun readUserInput(): BoardPosition {
-        waitTillTurnEnds()
+        waitForYourTimeToPlay()
         return BoardPosition.of(positionGenerator.next())
     }
 
-    private fun waitTillTurnEnds() {
+    private fun waitForYourTimeToPlay() {
         try {
             Thread.sleep(turnDurationInSeconds.toLong())
         } catch (e: InterruptedException) {

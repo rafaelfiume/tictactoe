@@ -27,7 +27,7 @@ Run with ConsoleGameRunner class.
 
 ### BOT Mode
 
-If you want the TicTacToe to run in Bot Mode: pass "botmode" in the first program argument.
+To play TicTacToe in Bot Mode, pass `botmode` as command-line argument.
 
 ## TODO List - or Stories Being Played ;)
 
