@@ -1,5 +1,6 @@
 package com.rafaelfiume.tictactoe.acceptance;
 
+import com.googlecode.yatspec.junit.Notes;
 import com.googlecode.yatspec.junit.SpecRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,7 @@ import static com.rafaelfiume.tictactoe.matchers.BoardMatcher.showsABoardLike;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 
+@Notes("<a href=\"https://github.com/rafaelfiume/tictactoe/issues/5\">Story #5</a>")
 @RunWith(SpecRunner.class)
 public class ConsoleTicTacToeHasDrawTest extends AbstractConsoleTicTacToeTest {
 

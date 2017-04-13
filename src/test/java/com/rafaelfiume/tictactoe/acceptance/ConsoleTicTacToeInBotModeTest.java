@@ -1,5 +1,6 @@
 package com.rafaelfiume.tictactoe.acceptance;
 
+import com.googlecode.yatspec.junit.Notes;
 import com.googlecode.yatspec.junit.SpecResultListener;
 import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.junit.WithCustomResultListeners;
@@ -23,6 +24,7 @@ import static com.googlecode.totallylazy.Sequences.sequence;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
+@Notes("<a href=\"https://github.com/rafaelfiume/tictactoe/issues/7\">Story #7</a>")
 @RunWith(SpecRunner.class)
 public class ConsoleTicTacToeInBotModeTest extends TestState implements WithCustomResultListeners {
 

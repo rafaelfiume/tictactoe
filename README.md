@@ -29,25 +29,3 @@ Run with ConsoleGameRunner class.
 
 To play TicTacToe in Bot Mode, pass `botmode` as command-line argument.
 
-## TODO List - or Stories Being Played ;)
-
-### ~~Playing TicTacToe using a terminal (Parent Story)~~
-* ~~Board creation~~
-* ~~Player X wins with vertical line~~
-* ~~Player O wins with horizontal line~~
-* ~~Player X wins with diagonal line~~
-* ~~Game ends with a draw~~
-* ~~Cross platform game (now working on Windows as well)~~
-* ~~Play the game in BOT mode~~
-* ~~Validate player input (player selects an already marked cell in the board)~~
-* ~~Validate player input (player selects unknown position)~~
-
-### Playing TicTacToe using a GUI (Parent Story)
-* Implement GUI
-
-### Implementing AI
-* Play against computer AI
-* Play online against remote opponent
-
-### Non-functional Story
-* App runs with a double click

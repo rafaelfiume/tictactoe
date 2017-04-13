@@ -1,5 +1,6 @@
 package com.rafaelfiume.tictactoe.acceptance;
 
+import com.googlecode.yatspec.junit.Notes;
 import com.googlecode.yatspec.junit.SpecRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import static org.hamcrest.Matchers.is;
 @RunWith(SpecRunner.class)
 public class ConsoleTicTacToeHasWinnerTest extends AbstractConsoleTicTacToeTest {
 
+    @Notes("<a href=\"https://github.com/rafaelfiume/tictactoe/issues/2\">Story #2</a>")
     @Test
     public void playerXWinsWhenGettingThreeInAVerticalRow() throws Exception {
         given(player_X_types_1());
@@ -31,6 +33,7 @@ public class ConsoleTicTacToeHasWinnerTest extends AbstractConsoleTicTacToeTest 
         then(theGameStatus(), is("PLAYER X WON!"));
     }
 
+    @Notes("<a href=\"https://github.com/rafaelfiume/tictactoe/issues/3\">Story #3</a>")
     @Test
     public void playerOWinsWhenGettingThreeInAHorizontalRow() throws Exception {
         given(player_X_types_1());
@@ -52,6 +55,7 @@ public class ConsoleTicTacToeHasWinnerTest extends AbstractConsoleTicTacToeTest 
         then(theGameStatus(), is("PLAYER O WON!"));
     }
 
+    @Notes("<a href=\"https://github.com/rafaelfiume/tictactoe/issues/4\">Story #4</a>")
     @Test
     public void playerXWinsWhenGettingThreeInADiagonalRow() throws Exception {
         given(player_X_types_1());
